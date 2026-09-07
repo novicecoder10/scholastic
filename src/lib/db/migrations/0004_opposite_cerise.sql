@@ -1,0 +1,1 @@
+ALTER TABLE "provider_health_snapshot" ADD COLUMN "latency_ms" real;

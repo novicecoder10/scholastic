@@ -1,0 +1,139 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1785072213056,
+      "tag": "0000_enable_pgvector_extension",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1785072241094,
+      "tag": "0001_init_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1785083411811,
+      "tag": "0002_reflective_echo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1785121927490,
+      "tag": "0003_dapper_sir_ram",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1785205272912,
+      "tag": "0004_opposite_cerise",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1785258202328,
+      "tag": "0005_dazzling_dorian_gray",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1785263005271,
+      "tag": "0006_tidy_meggan",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1785267675581,
+      "tag": "0007_massive_crystal",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1785269305901,
+      "tag": "0008_illegal_metal_master",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1785270015911,
+      "tag": "0009_daffy_joystick",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1785351081111,
+      "tag": "0010_panoramic_vampiro",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1788700000000,
+      "tag": "0011_add_document_ingestion",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1788700001000,
+      "tag": "0012_add_accounts_and_library",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1788700002000,
+      "tag": "0013_add_account_issuer",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1788700003000,
+      "tag": "0014_add_credits_and_capacity",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1788700004000,
+      "tag": "0015_add_extraction_and_matrix",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1788700005000,
+      "tag": "0016_add_manuscripts",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1788700006000,
+      "tag": "0017_add_capacity_endpoints",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1788700007000,
+      "tag": "0018_capacity_dormant_status",
+      "breakpoints": true
+    }
+  ]
+}
