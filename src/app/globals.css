@@ -1,26 +1,173 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
+/*
+ * Palette tokens (sub-project #1, the SciSpace-inspired visual redesign).
+ *
+ * Dark-first: the dark values live on :root and are what the app ships as its
+ * default look. Light mode is kept as the secondary, system-preference palette
+ * under `prefers-color-scheme: light` — same token names, different values, so
+ * components never need a `dark:` variant for anything the palette covers.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-page: #0d0f14;
+  --bg-surface: #161a23;
+  --bg-surface-2: #1b1f2b;
+  --bg-nav: #12141c;
+  --border-line: #2a3040;
+  --border-line-strong: #3a4152;
+  --text-ink: #e5e7eb;
+  --text-muted: #8b93a3;
+  --accent: #818cf8;
+  --accent-link: #93c5fd;
+  --accent-solid: #4f46e5;
+  --accent-solid-hover: #4338ca;
+  --accent-ink: #ffffff;
+  --success: #4ade80;
+  --warning-border: #7c5e10;
+  --warning-bg: #221b06;
+  --warning-text: #fbbf24;
+  --danger: #f87171;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-page: #ffffff;
+    --bg-surface: #ffffff;
+    --bg-surface-2: #eef1ff;
+    --bg-nav: #ffffff;
+    --border-line: #e4e4e7;
+    --border-line-strong: #c9cbd3;
+    --text-ink: #171717;
+    --text-muted: #52525b;
+    --accent: #4f46e5;
+    --accent-link: #1d4ed8;
+    --accent-solid: #4f46e5;
+    --accent-solid-hover: #4338ca;
+    --accent-ink: #ffffff;
+    --success: #15803d;
+    --warning-border: #fcd34d;
+    --warning-bg: #fffbeb;
+    --warning-text: #92400e;
+    --danger: #dc2626;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-page: var(--bg-page);
+  --color-surface: var(--bg-surface);
+  --color-surface-2: var(--bg-surface-2);
+  --color-nav: var(--bg-nav);
+  --color-line: var(--border-line);
+  --color-line-strong: var(--border-line-strong);
+  --color-ink: var(--text-ink);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-link: var(--accent-link);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-solid-hover: var(--accent-solid-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-success: var(--success);
+  --color-warning-line: var(--warning-border);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-ink: var(--warning-text);
+  --color-danger: var(--danger);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--bg-page);
+  color: var(--text-ink);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*
+ * One focus treatment for the whole app: an accent ring with a page-colored
+ * offset, so it reads on both the page and card backgrounds.
+ */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+/*
+ * Metadata numerals (years, citation counts, latencies) are set in the mono
+ * face — the one place this app's type deviates from Geist Sans, because those
+ * figures are read as data, not prose.
+ */
+.metric {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * The manuscript editor (sub-project #8).
+ *
+ * ProseMirror renders bare semantic HTML with no classes, so the editor's prose
+ * is styled by element here rather than with utilities. Scoped under
+ * `.manuscript-prose` so nothing else in the app inherits it.
+ */
+.manuscript-prose {
+  color: var(--color-ink);
+  line-height: 1.7;
+}
+.manuscript-prose p {
+  margin-block: 0.75rem;
+}
+.manuscript-prose h1,
+.manuscript-prose h2,
+.manuscript-prose h3 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-block: 1.5rem 0.5rem;
+}
+.manuscript-prose h1 {
+  font-size: 1.5rem;
+}
+.manuscript-prose h2 {
+  font-size: 1.25rem;
+}
+.manuscript-prose h3 {
+  font-size: 1.05rem;
+}
+.manuscript-prose ul,
+.manuscript-prose ol {
+  margin-block: 0.75rem;
+  padding-inline-start: 1.5rem;
+}
+.manuscript-prose ul {
+  list-style: disc;
+}
+.manuscript-prose ol {
+  list-style: decimal;
+}
+.manuscript-prose blockquote {
+  border-inline-start: 2px solid var(--color-line);
+  padding-inline-start: 1rem;
+  color: var(--color-muted);
+  margin-block: 1rem;
+}
+
+/* A citation reads as an object rather than as text, because that is what it
+ * is: an atom node holding a workKey, whose label is derived. */
+.citation-chip {
+  display: inline-block;
+  border: 1px solid var(--color-line);
+  border-radius: 9999px;
+  padding: 0 0.4rem;
+  margin-inline: 0.1rem;
+  font-size: 0.8em;
+  color: var(--color-accent);
+  white-space: nowrap;
+  cursor: default;
+}
+.citation-chip.ProseMirror-selectednode {
+  border-color: var(--color-accent);
+  background: var(--color-surface-2);
 }

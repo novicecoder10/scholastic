@@ -1,65 +1,80 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import { performSearch } from "@/lib/search";
+import { verifySession } from "@/lib/auth/dal";
+import { savedWorkKeys } from "@/lib/library/repository";
+import { logger } from "@/lib/log/logger";
+import { HomeHero } from "@/components/home/HomeHero";
+import { SearchExperience } from "@/components/search/SearchExperience";
+import type { SearchMode } from "@/lib/types/search";
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+interface PageProps {
+  searchParams: Promise<{ q?: string; mode?: string; view?: string }>;
+}
+
+function parseMode(mode: string | undefined): SearchMode {
+  return mode === "semantic" ? "semantic" : "keyword";
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const { q, mode } = await searchParams;
+  const query = q?.trim();
+  if (!query) return {};
+
+  const searchMode = parseMode(mode);
+  const canonicalParams = new URLSearchParams({ q: query });
+  if (searchMode === "semantic") canonicalParams.set("mode", "semantic");
+
+  return {
+    title: query,
+    description: `Search results for "${query}" across OpenAlex, Semantic Scholar, Crossref, PubMed, arXiv, CORE, Europe PMC, DOAJ, and Unpaywall.`,
+    alternates: { canonical: `/?${canonicalParams.toString()}` },
+  };
+}
+
+export default async function HomePage({ searchParams }: PageProps) {
+  const { q, mode, view } = await searchParams;
+  const query = q?.trim();
+  const searchMode = parseMode(mode);
+  const response = query ? await performSearch({ q: query, mode: searchMode }) : null;
+
+  // Which of these results the signed-in user has already saved, so a card
+  // renders "Saved ✓" on arrival rather than offering to save something that is
+  // already in the library. One query for the whole page, not one per card.
+  // Degrades like every other database-backed path here: a failure means the
+  // buttons start unsaved, never that the results page fails to render.
+  let saved: string[] = [];
+  if (response) {
+    const user = await verifySession();
+    if (user) {
+      try {
+        saved = [...(await savedWorkKeys(user.id, response.results.map((w) => w.workKey)))];
+      } catch (err) {
+        logger.warn({ event: "saved_keys_lookup_failed", err: String(err) }, "saved lookup failed");
+      }
+    }
+  }
+
+  if (!response) {
+    return (
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center justify-center px-4 py-16 sm:px-8">
+        <HomeHero initialMode={searchMode} />
       </main>
-    </div>
+    );
+  }
+
+  return (
+    <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-4 py-8 sm:px-8">
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <h1 className="text-ink text-lg font-semibold tracking-tight">{query}</h1>
+        <span className="text-muted text-xs">
+          {searchMode === "semantic" ? "Semantic search" : "Keyword search"}
+        </span>
+      </div>
+      <SearchExperience
+        response={response}
+        openSynthesis={view === "review"}
+        savedWorkKeys={saved}
+      />
+    </main>
   );
 }
