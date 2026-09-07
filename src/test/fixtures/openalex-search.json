@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "count": 2,
+    "db_response_time_ms": 12,
+    "page": 1,
+    "per_page": 20
+  },
+  "results": [
+    {
+      "id": "https://openalex.org/W2963341956",
+      "doi": "https://doi.org/10.48550/arxiv.1706.03762",
+      "title": "Attention Is All You Need",
+      "display_name": "Attention Is All You Need",
+      "publication_year": 2017,
+      "primary_location": {
+        "landing_page_url": "https://arxiv.org/abs/1706.03762",
+        "pdf_url": "https://arxiv.org/pdf/1706.03762",
+        "is_oa": true,
+        "source": {
+          "display_name": "arXiv",
+          "id": "https://openalex.org/S4306400194",
+          "issn_l": "2331-8422",
+          "issn": [
+            "2331-8422"
+          ],
+          "type": "repository",
+          "host_organization_name": "Cornell University",
+          "is_in_doaj": false
+        }
+      },
+      "open_access": {
+        "is_oa": true,
+        "oa_url": "https://arxiv.org/pdf/1706.03762"
+      },
+      "authorships": [
+        {
+          "author": {
+            "display_name": "Ashish Vaswani",
+            "orcid": null,
+            "id": "https://openalex.org/A5086928770"
+          }
+        },
+        {
+          "author": {
+            "display_name": "Noam Shazeer",
+            "orcid": "https://orcid.org/0000-0001-2345-6789",
+            "id": "https://openalex.org/A5019757423"
+          }
+        }
+      ],
+      "cited_by_count": 120000,
+      "abstract_inverted_index": {
+        "The": [
+          0
+        ],
+        "dominant": [
+          1
+        ],
+        "sequence": [
+          2
+        ],
+        "transduction": [
+          3
+        ],
+        "models": [
+          4
+        ]
+      }
+    },
+    {
+      "id": "https://openalex.org/W4200000000",
+      "doi": null,
+      "title": "A Minor Follow-up Paper",
+      "display_name": "A Minor Follow-up Paper",
+      "publication_year": 2021,
+      "primary_location": {
+        "landing_page_url": "https://example.org/paper",
+        "pdf_url": null,
+        "is_oa": false,
+        "source": {
+          "display_name": "Example Conference"
+        }
+      },
+      "open_access": {
+        "is_oa": false,
+        "oa_url": null
+      },
+      "authorships": [
+        {
+          "author": {
+            "display_name": "Jane Doe",
+            "orcid": null
+          }
+        }
+      ],
+      "cited_by_count": 3,
+      "abstract_inverted_index": null
+    }
+  ]
+}

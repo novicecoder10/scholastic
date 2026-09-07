@@ -1,0 +1,26 @@
+{
+  "result": {
+    "uids": ["34567890", "11112222"],
+    "34567890": {
+      "uid": "34567890",
+      "title": "CRISPR-based gene editing in human cells.",
+      "pubdate": "2020 Jun 15",
+      "source": "Nature",
+      "fulljournalname": "Nature",
+      "authors": [{ "name": "Smith JA" }, { "name": "Doe B" }],
+      "articleids": [
+        { "idtype": "pubmed", "value": "34567890" },
+        { "idtype": "doi", "value": "10.1038/s41586-020-1234-5" }
+      ]
+    },
+    "11112222": {
+      "uid": "11112222",
+      "title": "A closed-access clinical study.",
+      "pubdate": "2018",
+      "source": "Lancet",
+      "fulljournalname": "The Lancet",
+      "authors": [{ "name": "Garcia M" }],
+      "articleids": [{ "idtype": "pubmed", "value": "11112222" }]
+    }
+  }
+}

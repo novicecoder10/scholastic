@@ -1,0 +1,34 @@
+{
+  "hitCount": 2,
+  "resultList": {
+    "result": [
+      {
+        "id": "34567890",
+        "pmid": "34567890",
+        "doi": "10.1038/s41586-020-1234-5",
+        "title": "CRISPR-based gene editing in human cells",
+        "authorString": "Smith J, Doe A, Lee K.",
+        "journalTitle": "Nature",
+        "pubYear": "2020",
+        "citedByCount": 890,
+        "isOpenAccess": "Y",
+        "abstractText": "We describe a novel approach to gene editing.",
+        "fullTextUrlList": {
+          "fullTextUrl": [
+            { "url": "https://europepmc.org/articles/PMC1234/pdf", "documentStyle": "pdf", "availability": "Open access" }
+          ]
+        }
+      },
+      {
+        "id": "11112222",
+        "pmid": "11112222",
+        "title": "A closed-access clinical study",
+        "authorString": "Garcia M.",
+        "journalTitle": "The Lancet",
+        "pubYear": "2018",
+        "citedByCount": 12,
+        "isOpenAccess": "N"
+      }
+    ]
+  }
+}

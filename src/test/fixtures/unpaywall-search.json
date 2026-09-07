@@ -1,0 +1,35 @@
+{
+  "total_results": 2,
+  "results": [
+    {
+      "score": 12.5,
+      "response": {
+        "doi": "10.1038/s41586-020-1234-5",
+        "title": "CRISPR-based gene editing in human cells",
+        "year": 2020,
+        "journal_name": "Nature",
+        "is_oa": true,
+        "best_oa_location": {
+          "url": "https://europepmc.org/articles/PMC1234",
+          "url_for_pdf": "https://europepmc.org/articles/PMC1234/pdf"
+        },
+        "z_authors": [
+          { "given": "J", "family": "Smith" },
+          { "given": "A", "family": "Doe" }
+        ]
+      }
+    },
+    {
+      "score": 8.1,
+      "response": {
+        "doi": "10.1000/closed.paper",
+        "title": "A Closed Access Paper",
+        "year": 2015,
+        "journal_name": "Some Journal",
+        "is_oa": false,
+        "best_oa_location": null,
+        "z_authors": []
+      }
+    }
+  ]
+}

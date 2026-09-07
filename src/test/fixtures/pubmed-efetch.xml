@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE">
+      <PMID Version="1">34567890</PMID>
+      <Article>
+        <Abstract>
+          <AbstractText Label="BACKGROUND">CRISPR enables precise editing.</AbstractText>
+          <AbstractText Label="RESULTS">We demonstrate efficient editing in cell lines.</AbstractText>
+        </Abstract>
+      </Article>
+    </MedlineCitation>
+  </PubmedArticle>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE">
+      <PMID Version="1">11112222</PMID>
+      <Article>
+        <Abstract>
+          <AbstractText>A single unlabeled abstract paragraph.</AbstractText>
+        </Abstract>
+      </Article>
+    </MedlineCitation>
+  </PubmedArticle>
+</PubmedArticleSet>

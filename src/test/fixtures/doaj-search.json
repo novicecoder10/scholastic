@@ -1,0 +1,28 @@
+{
+  "total": 2,
+  "page": 1,
+  "pageSize": 20,
+  "results": [
+    {
+      "id": "abc123def456",
+      "bibjson": {
+        "title": "Open Access Practices in Developing Countries",
+        "author": [{ "name": "Maria Santos" }, { "name": "Wei Zhang" }],
+        "journal": { "title": "Journal of Open Science" },
+        "year": "2022",
+        "abstract": "This study examines open access adoption trends.",
+        "identifier": [{ "type": "doi", "id": "10.5555/joss.2022.001" }],
+        "link": [{ "type": "fulltext", "url": "https://example.org/joss/2022/001.pdf" }]
+      }
+    },
+    {
+      "id": "xyz789",
+      "bibjson": {
+        "title": "A Paper Without a DOI",
+        "author": [{ "name": "Unknown Author" }],
+        "journal": { "title": "Regional Studies Quarterly" },
+        "year": "2019"
+      }
+    }
+  ]
+}

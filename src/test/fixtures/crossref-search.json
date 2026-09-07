@@ -1,0 +1,32 @@
+{
+  "message": {
+    "total-results": 2,
+    "items": [
+      {
+        "DOI": "10.1109/5.771073",
+        "title": ["A Well-Known Published Paper"],
+        "author": [
+          { "given": "Jane", "family": "Smith", "ORCID": "https://orcid.org/0000-0002-1111-2222" },
+          { "given": "John", "family": "Doe" }
+        ],
+        "published": { "date-parts": [[2019, 6, 1]] },
+        "container-title": ["Journal of Examples"],
+        "is-referenced-by-count": 450,
+        "abstract": "<jats:p>This paper studies an important example problem.</jats:p>",
+        "link": [
+          { "URL": "https://example.org/full.pdf", "content-type": "application/pdf" }
+        ],
+        "URL": "https://doi.org/10.1109/5.771073"
+      },
+      {
+        "DOI": "10.1000/xyz123",
+        "title": ["Another Paper Without Extras"],
+        "author": [{ "given": "A.", "family": "Author" }],
+        "published": { "date-parts": [[2015]] },
+        "container-title": [],
+        "is-referenced-by-count": 0,
+        "URL": "https://doi.org/10.1000/xyz123"
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "totalHits": 2,
+  "results": [
+    {
+      "id": "12345",
+      "doi": "10.5281/zenodo.999999",
+      "title": "Repository-Hosted Open Access Study",
+      "abstract": "An open dataset analysis.",
+      "authors": [{ "name": "Alex Researcher" }],
+      "yearPublished": 2021,
+      "publisher": "Example University Press",
+      "journals": [{ "title": "Example Repository Journal" }],
+      "downloadUrl": "https://core.ac.uk/download/12345.pdf"
+    },
+    {
+      "id": "67890",
+      "doi": null,
+      "title": "Another Repository Item",
+      "authors": [{ "name": "Sam Author" }],
+      "yearPublished": 2018,
+      "publisher": "Another Press"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "total": 2,
+  "offset": 0,
+  "data": [
+    {
+      "paperId": "204e3073870fae3d05bcbc2f6a8e263d9b72e776",
+      "title": "Attention Is All You Need",
+      "abstract": "We propose a new simple network architecture, the Transformer.",
+      "year": 2017,
+      "venue": "NeurIPS",
+      "citationCount": 95000,
+      "openAccessPdf": { "url": "https://arxiv.org/pdf/1706.03762" },
+      "externalIds": { "DOI": "10.48550/arXiv.1706.03762", "ArXiv": "1706.03762" },
+      "authors": [
+        { "name": "Ashish Vaswani", "externalIds": { "ORCID": "0000-0001-2222-3333" } },
+        { "name": "Noam Shazeer" }
+      ]
+    },
+    {
+      "paperId": "abc123",
+      "title": "A Closed Access Follow-up Study",
+      "abstract": null,
+      "year": 2020,
+      "venue": "Some Journal",
+      "citationCount": 5,
+      "openAccessPdf": null,
+      "externalIds": {},
+      "authors": [{ "name": "Someone Else" }]
+    }
+  ]
+}
