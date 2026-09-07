@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scholastic
 
-## Getting Started
+An AI-native academic discovery platform — not a Google Scholar clone, but something
+meaningfully better: one unified, deduplicated search across OpenAlex, Semantic Scholar,
+Crossref, PubMed, arXiv, CORE, Europe PMC, DOAJ, and Unpaywall.
 
-First, run the development server:
+**Milestone 1:** unified multi-source search — fan out to every source in parallel,
+dedupe/merge by DOI (with fuzzy fallback), rank, and surface results through a fast,
+accessible search UI.
+
+**Milestone 2:** AI-native features — semantic/natural-language search (embeddings, hosted or
+fully local with no API key required), AI-generated plain-language summaries, citation-graph
+enrichment (who cites this, what does it cite), and research-assistant chat over a paper.
+
+**Milestone 3:** an interactive node-based citation graph, a conversational/agentic
+search bar (ask a question in plain language; it rewrites it into a search or asks a
+clarifying question), multi-paper synthesis chat (reason across an entire result set, not one
+paper at a time), and citation reasoning ("why does this paper cite that one"). Every AI
+feature degrades gracefully (a clear "not configured" response, never a crash) when no LLM
+API key is set — Anthropic and a genuinely free OpenRouter tier are both supported.
+
+**Product sequence:** nine sub-projects on top of the three milestones, all shipped, plus the homepage's three remaining quick actions (Draft, Citation map, Presentation) — **#1** a dark-first visual redesign and nav shell; **#2** PDF upload, storage, page-aware
+chunking and embedding; **#3** chat with a PDF in a split reader that answers with `[p. N]`
+citations you can click; **#4** deterministic citations in five formats, topic discovery that
+narrows a result set, and a clarity rewriter; **#5** optional accounts, a library of saved
+papers, uploads and collections, and adoption of anonymous uploads on sign-up; **#6** a shared
+pool of donated AI capacity with an explainable credit ledger, ORCID-verified contribution
+grants, and a public sponsor list — credits are never purchasable and never earned by using the
+app; **#7** table and statistic extraction from uploaded PDFs, and an evidence matrix where every
+filled cell carries the page and the sentence it came from; **#8** a manuscript editor whose
+citations are objects — derived bibliography, four exports, and a drafting mode that cannot
+produce an uncited sentence; **#9** a full-page citation-graph explorer over a tested pure graph
+layer, with deterministic structural analysis labelled "within the loaded subgraph". All nine are
+shipped — see [`ROADMAP.md`](./ROADMAP.md).
+
+Everything optional stays optional: with no LLM key, no `SESSION_SECRET`, or no
+`BETTER_AUTH_SECRET`, the corresponding feature is absent and says so — never broken.
+
+## Documentation
+
+- [`SETUP.md`](./SETUP.md) — prerequisites, environment configuration, running locally.
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md) — system design, provider adapter contract,
+  resilience layer, dedup/merge/ranking algorithm, API contract.
+- [`ROADMAP.md`](./ROADMAP.md) — what's built, what's next, what's explicitly out of scope.
+- [`KNOWN_LIMITATIONS.md`](./KNOWN_LIMITATIONS.md) — deliberate trade-offs and known gaps.
+- [`CHANGELOG.md`](./CHANGELOG.md) — release history.
+- [`PROJECT_LOG.md`](./PROJECT_LOG.md) — running development log.
+
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local   # set at least DATABASE_URL — see SETUP.md
+pnpm db:migrate
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then visit http://localhost:3000 and search for something.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm test    # unit + integration tests (Vitest)
+pnpm lint    # ESLint
+pnpm build   # production build
+```
