@@ -39,7 +39,7 @@ jobs:
       BETTER_AUTH_SECRET: ci-auth-secret-not-a-real-one
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: pnpm/action-setup@v4
         with:
