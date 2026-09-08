@@ -37,7 +37,7 @@ find-topics are useful against plain search results with no PDF involved.
 - No `/tools` hub and no standalone tool pages.
 - No citation style beyond APA, MLA, Chicago, BibTeX and RIS. Adding a fifth
   is a new formatter file, deliberately cheap.
-- No citation *management* — no saved bibliographies, no folders. That is #5.
+- No citation _management_ — no saved bibliographies, no folders. That is #5.
 - No AI detector, and no positioning of the paraphraser as one's counterpart.
   `ROADMAP.md` already refuses the detector on honesty grounds; a rewriter sold
   as its evasion tool is the same refusal from the other side.
@@ -48,7 +48,7 @@ find-topics are useful against plain search results with no PDF involved.
 ## 4a. Citation generator
 
 Deterministic end to end. No LLM anywhere in this tool. Citations are the one
-output in this product that must never be *plausibly* wrong, and a model that
+output in this product that must never be _plausibly_ wrong, and a model that
 invents a page range when it lacks one is worse than a citation that admits a
 gap.
 
@@ -70,8 +70,8 @@ export interface BibliographicDetail {
   firstPage: string | null;
   lastPage: string | null;
   publisher: string | null;
-  containerTitle: string | null;   // journal or book title, as the source states it
-  type: string | null;             // journal-article | book-chapter | preprint | ...
+  containerTitle: string | null; // journal or book title, as the source states it
+  type: string | null; // journal-article | book-chapter | preprint | ...
   issued: { year: number; month?: number; day?: number } | null;
   issn: string | null;
   isbn: string | null;
@@ -203,10 +203,10 @@ meant to exclude.
 
 The two split cleanly by whose text it is:
 
-| Whose text | Action | Where it goes |
-| --- | --- | --- |
-| The paper's | **Explain this passage** | Selecting in the PDF routes the passage to the existing chat |
-| The user's own | **Rewrite for clarity** | A pasted-text panel; later, #8's editor |
+| Whose text     | Action                   | Where it goes                                                |
+| -------------- | ------------------------ | ------------------------------------------------------------ |
+| The paper's    | **Explain this passage** | Selecting in the PDF routes the passage to the existing chat |
+| The user's own | **Rewrite for clarity**  | A pasted-text panel; later, #8's editor                      |
 
 Explaining someone else's writing and rewriting your own are different verbs,
 and the surface should say which one it is. This is also the better product:
@@ -218,7 +218,10 @@ and the surface should say which one it is. This is also the better product:
 machinery `/api/chat` uses.
 
 ```ts
-{ text: string; mode: "plain-language" | "concise" | "formal" }
+{
+  text: string;
+  mode: "plain-language" | "concise" | "formal";
+}
 ```
 
 Input capped at roughly 2000 words; over that is a 400 naming the limit. No LLM
@@ -229,7 +232,7 @@ configured is a 503, matching every other AI endpoint.
 Three, and they are correctness requirements rather than style preferences:
 
 - **Citation markers are preserved verbatim.** A rewrite that drops `(Smith
-  2019)` silently destroys attribution.
+2019)` silently destroys attribution.
 - **No claims are added.** The rewrite may not introduce specifics the source
   text did not contain.
 - **Hedging is preserved.** Turning "may suggest" into "shows" is a factual
@@ -256,14 +259,14 @@ counterpart would be the same problem viewed from the other side.
 vitest, node environment. Everything of consequence in this sub-project is a
 pure function, so coverage is genuinely good here — unlike #3.
 
-| Test | Covers |
-| --- | --- |
-| `format/*.test.ts` | Golden output per style across the cases that actually break formatters: no author, no year (`n.d.`), one author, two authors, twenty-one authors (APA ellipsis), corporate author, no DOI, preprint with no volume, book chapter |
-| `csl.test.ts` | `CanonicalWork` → CSL-JSON mapping, including a fully-null `bibliographic` |
-| `completeness.test.ts` | Per-style required-field checks; the note text for each missing combination |
-| `pickBibliographic.test.ts` | Whole-block selection; priority ordering; two sources both carrying a block; no source carrying one |
-| `topics.test.ts` | Frequency aggregation, ranking, tie-break stability, empty result set, results with no OpenAlex member |
-| `paraphrase route.test.ts` | Mode validation, the word cap, 503 without an LLM, streaming shape |
+| Test                        | Covers                                                                                                                                                                                                                            |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `format/*.test.ts`          | Golden output per style across the cases that actually break formatters: no author, no year (`n.d.`), one author, two authors, twenty-one authors (APA ellipsis), corporate author, no DOI, preprint with no volume, book chapter |
+| `csl.test.ts`               | `CanonicalWork` → CSL-JSON mapping, including a fully-null `bibliographic`                                                                                                                                                        |
+| `completeness.test.ts`      | Per-style required-field checks; the note text for each missing combination                                                                                                                                                       |
+| `pickBibliographic.test.ts` | Whole-block selection; priority ordering; two sources both carrying a block; no source carrying one                                                                                                                               |
+| `topics.test.ts`            | Frequency aggregation, ranking, tie-break stability, empty result set, results with no OpenAlex member                                                                                                                            |
+| `paraphrase route.test.ts`  | Mode validation, the word cap, 503 without an LLM, streaming shape                                                                                                                                                                |
 
 ### Regression guard
 

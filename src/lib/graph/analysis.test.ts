@@ -123,7 +123,12 @@ describe("yearLayers", () => {
 describe("summarise", () => {
   it("reports counts and the most-cited node within the set", () => {
     const summary = summarise(GRAPH);
-    expect(summary).toMatchObject({ nodeCount: 5, linkCount: 3, componentCount: 2, largestComponent: 3 });
+    expect(summary).toMatchObject({
+      nodeCount: 5,
+      linkCount: 3,
+      componentCount: 2,
+      largestComponent: 3,
+    });
     expect(summary.mostCited?.inDegree).toBe(1);
   });
 

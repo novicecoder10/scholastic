@@ -52,7 +52,10 @@ export function verifyState(value: string | undefined, presented: string | undef
   if (separator <= 0) return false;
   const nonce = value.slice(0, separator);
   const mac = Buffer.from(value.slice(separator + 1), "hex");
-  const expected = Buffer.from(createHmac("sha256", stateSecret()).update(nonce).digest("hex"), "hex");
+  const expected = Buffer.from(
+    createHmac("sha256", stateSecret()).update(nonce).digest("hex"),
+    "hex",
+  );
   return mac.length === expected.length && timingSafeEqual(mac, expected);
 }
 

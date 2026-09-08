@@ -47,7 +47,12 @@ export default async function HomePage({ searchParams }: PageProps) {
     const user = await verifySession();
     if (user) {
       try {
-        saved = [...(await savedWorkKeys(user.id, response.results.map((w) => w.workKey)))];
+        saved = [
+          ...(await savedWorkKeys(
+            user.id,
+            response.results.map((w) => w.workKey),
+          )),
+        ];
       } catch (err) {
         logger.warn({ event: "saved_keys_lookup_failed", err: String(err) }, "saved lookup failed");
       }

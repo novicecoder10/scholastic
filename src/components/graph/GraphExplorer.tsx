@@ -45,9 +45,7 @@ export function GraphExplorer({
     void Promise.all(
       seeds.map(async (seed) => {
         try {
-          const response = await fetch(
-            `/api/works/${encodeURIComponent(seed.workKey)}/citations`,
-          );
+          const response = await fetch(`/api/works/${encodeURIComponent(seed.workKey)}/citations`);
           if (!response.ok) throw new Error(String(response.status));
           const body = (await response.json()) as {
             citing: CitationRef[];
@@ -88,8 +86,8 @@ export function GraphExplorer({
     <div>
       {failed > 0 && (
         <p className="text-muted mb-2 text-xs">
-          <span className="metric">{failed}</span> of{" "}
-          <span className="metric">{seeds.length}</span> papers had no citation data available.
+          <span className="metric">{failed}</span> of <span className="metric">{seeds.length}</span>{" "}
+          papers had no citation data available.
         </p>
       )}
       <CitationGraph initialState={state} height={620} libraryKeys={keys} />

@@ -70,9 +70,7 @@ describe("preflight", () => {
   });
 
   it("refuses an anonymous visitor who has spent the allowance", async () => {
-    selectMock.mockResolvedValue([
-      { sessionId: "s1", used: 10_000, periodStartsAt: new Date() },
-    ]);
+    selectMock.mockResolvedValue([{ sessionId: "s1", used: 10_000, periodStartsAt: new Date() }]);
     const result = await preflight({ kind: "anonymous", sessionId: "s1" }, "summary");
     expect(result.allowed).toBe(false);
     expect(result.message).toMatch(/account/i);

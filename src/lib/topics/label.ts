@@ -21,7 +21,6 @@ const SYSTEM_PROMPT =
   "one theme; concepts that fit nowhere may be left out.\\n\\n" +
   'Respond with JSON only: {"themes":[{"label":"...","description":"...","concepts":["..."]}]}';
 
-
 /**
  * Drops any concept the model produced that wasn't in the input, and any theme
  * left with nothing.

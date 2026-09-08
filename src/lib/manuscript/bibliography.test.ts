@@ -67,9 +67,9 @@ describe("collectCitedWorkKeys", () => {
   });
 
   it("drops a work when its last citation is deleted", () => {
-    expect(collectCitedWorkKeys({ type: "doc", content: [paragraph(text("no citation"))] })).toEqual(
-      [],
-    );
+    expect(
+      collectCitedWorkKeys({ type: "doc", content: [paragraph(text("no citation"))] }),
+    ).toEqual([]);
   });
 
   it("finds citations nested inside lists and quotes", () => {
@@ -86,9 +86,9 @@ describe("collectCitedWorkKeys", () => {
   });
 
   it("ignores a citation node with no workKey rather than emitting an empty entry", () => {
-    expect(collectCitedWorkKeys({ type: "doc", content: [paragraph({ type: "citation" })] })).toEqual(
-      [],
-    );
+    expect(
+      collectCitedWorkKeys({ type: "doc", content: [paragraph({ type: "citation" })] }),
+    ).toEqual([]);
   });
 
   it("handles an empty or absent document", () => {

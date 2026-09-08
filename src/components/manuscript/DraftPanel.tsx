@@ -4,9 +4,7 @@ import { useState } from "react";
 import { CostHint } from "@/components/credits/CostHint";
 import type { SavedWorkOption } from "@/components/manuscript/ManuscriptEditor";
 
-export type DraftSegment =
-  | { kind: "text"; value: string }
-  | { kind: "citation"; workKey: string };
+export type DraftSegment = { kind: "text"; value: string } | { kind: "citation"; workKey: string };
 
 /**
  * The one generative mode: a related-work draft from sources the writer chose,

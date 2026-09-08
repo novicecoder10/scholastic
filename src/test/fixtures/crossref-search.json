@@ -13,9 +13,7 @@
         "container-title": ["Journal of Examples"],
         "is-referenced-by-count": 450,
         "abstract": "<jats:p>This paper studies an important example problem.</jats:p>",
-        "link": [
-          { "URL": "https://example.org/full.pdf", "content-type": "application/pdf" }
-        ],
+        "link": [{ "URL": "https://example.org/full.pdf", "content-type": "application/pdf" }],
         "URL": "https://doi.org/10.1109/5.771073"
       },
       {

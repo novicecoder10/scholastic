@@ -79,17 +79,17 @@ Chosen direction: **blue/indigo accent**, close in spirit to SciSpace's own
 dark UI (validated against the user's screenshot) without reusing their exact
 hex values.
 
-| Token | Value | Use |
-|---|---|---|
-| `--bg-page` | `#0d0f14` | Page background (dark) |
-| `--bg-card` | `#161a23` | Card/panel background |
-| `--bg-card-accent` | `#1b1f2b` (AI-summary tint), `#12141c` (navbar) | Highlighted sub-panels |
-| `--border` | `#2a3040` | Card/panel borders |
-| `--text-primary` | `#e5e7eb` | Body text |
-| `--text-muted` | `#8b93a3` / `#9ca3af` | Secondary text, metadata lines |
-| `--accent` | `#818cf8` | AI-summary badge, icons |
-| `--accent-link` | `#93c5fd` | Result titles, links |
-| `--accent-success` | existing green (`green-700`/`green-400`) kept | Open-access PDF links — unchanged, not part of this palette swap |
+| Token              | Value                                           | Use                                                              |
+| ------------------ | ----------------------------------------------- | ---------------------------------------------------------------- |
+| `--bg-page`        | `#0d0f14`                                       | Page background (dark)                                           |
+| `--bg-card`        | `#161a23`                                       | Card/panel background                                            |
+| `--bg-card-accent` | `#1b1f2b` (AI-summary tint), `#12141c` (navbar) | Highlighted sub-panels                                           |
+| `--border`         | `#2a3040`                                       | Card/panel borders                                               |
+| `--text-primary`   | `#e5e7eb`                                       | Body text                                                        |
+| `--text-muted`     | `#8b93a3` / `#9ca3af`                           | Secondary text, metadata lines                                   |
+| `--accent`         | `#818cf8`                                       | AI-summary badge, icons                                          |
+| `--accent-link`    | `#93c5fd`                                       | Result titles, links                                             |
+| `--accent-success` | existing green (`green-700`/`green-400`) kept   | Open-access PDF links — unchanged, not part of this palette swap |
 
 Implementation approach: introduce these as CSS custom properties in
 `globals.css` (light values on `:root`, dark values under the existing
@@ -133,7 +133,7 @@ screenshot's pattern, not its copy or branding):
   A `Tools ▾` affordance next to the input is a **visible-but-disabled**
   placeholder (no menu wired up) — future sub-projects hang tool selection
   off it.
-  - Note: the navbar (above) *also* carries a search input once a query is
+  - Note: the navbar (above) _also_ carries a search input once a query is
     active. Resolution: the homepage's large task box only renders on `/`
     with no active query; once a search has been run, the navbar's compact
     search input takes over and the large box is gone — no two simultaneous

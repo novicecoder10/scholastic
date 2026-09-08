@@ -191,7 +191,10 @@ export function ManuscriptEditor({
         <EditorContent editor={editor} />
 
         {notice && (
-          <p className="border-line bg-surface text-ink mt-4 rounded-xl border p-3 text-sm" role="status">
+          <p
+            className="border-line bg-surface text-ink mt-4 rounded-xl border p-3 text-sm"
+            role="status"
+          >
             {notice}
           </p>
         )}
@@ -239,9 +242,7 @@ export function ManuscriptEditor({
               {bibliography.map((entry, index) => (
                 <li key={entry.workKey} className={entry.missing ? "text-danger" : "text-ink/80"}>
                   <span className="metric text-muted mr-1">{index + 1}.</span>
-                  {entry.missing
-                    ? `${BROKEN_CITATION_LABEL} — ${entry.workKey}`
-                    : entry.text}
+                  {entry.missing ? `${BROKEN_CITATION_LABEL} — ${entry.workKey}` : entry.text}
                 </li>
               ))}
             </ol>
@@ -284,7 +285,10 @@ function inlineFor(entry: BibliographyEntryDto, index: number, style: CitationSt
   // The formatted entry opens with the author, which is what an author-date
   // label needs. Falling back to the position number is better than printing a
   // name parsed wrongly.
-  const surname = entry.text?.match(/^([^,(]+)/)?.[1]?.trim().split(/\s+/)[0];
+  const surname = entry.text
+    ?.match(/^([^,(]+)/)?.[1]
+    ?.trim()
+    .split(/\s+/)[0];
   if (!surname) return `[${index + 1}]`;
   if (style === "mla") return `(${surname})`;
   const year = entry.text?.match(/\((\d{4})\)/)?.[1] ?? "n.d.";

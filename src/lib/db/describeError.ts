@@ -9,9 +9,19 @@ export function describeDbError(err: unknown): string {
   const parts: string[] = [String(err)];
   let current: unknown = (err as { cause?: unknown })?.cause;
   for (let depth = 0; current && depth < 5; depth++) {
-    const e = current as { code?: string; message?: string; constraint_name?: string; hint?: string };
+    const e = current as {
+      code?: string;
+      message?: string;
+      constraint_name?: string;
+      hint?: string;
+    };
     parts.push(
-      [e.code && `code=${e.code}`, e.constraint_name && `constraint=${e.constraint_name}`, e.message, e.hint]
+      [
+        e.code && `code=${e.code}`,
+        e.constraint_name && `constraint=${e.constraint_name}`,
+        e.message,
+        e.hint,
+      ]
         .filter(Boolean)
         .join(" "),
     );

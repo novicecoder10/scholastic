@@ -35,7 +35,10 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
   }
   const valueType = typeof body.valueType === "string" ? body.valueType : "text";
   if (!VALUE_TYPES.has(valueType)) {
-    return NextResponse.json({ error: "'valueType' must be text, number or list" }, { status: 400 });
+    return NextResponse.json(
+      { error: "'valueType' must be text, number or list" },
+      { status: 400 },
+    );
   }
 
   try {
@@ -66,7 +69,10 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     await removeColumn(found.id, columnId);
     return new NextResponse(null, { status: 204 });
   } catch (err) {
-    logger.error({ event: "matrix_column_delete_failed", err: String(err) }, "column delete failed");
+    logger.error(
+      { event: "matrix_column_delete_failed", err: String(err) },
+      "column delete failed",
+    );
     return NextResponse.json({ error: "Couldn't remove that column." }, { status: 503 });
   }
 }

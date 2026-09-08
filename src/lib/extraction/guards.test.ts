@@ -116,9 +116,7 @@ describe("keepQuotedFindings", () => {
   it("drops a genuine quote that does not contain the value it is cited for", () => {
     // The check people forget. This reads as provenanced and is not: the quote
     // is real, the number was inferred from it.
-    expect(
-      keepQuotedFindings(CHUNK, [{ value: "412", quote: "across three sites" }]),
-    ).toEqual([]);
+    expect(keepQuotedFindings(CHUNK, [{ value: "412", quote: "across three sites" }])).toEqual([]);
   });
 
   it("keeps the good findings and drops the bad ones in one pass", () => {

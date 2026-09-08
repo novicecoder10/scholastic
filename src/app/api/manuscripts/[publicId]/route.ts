@@ -2,11 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireUserApi } from "@/lib/auth/apiGuard";
 import { isManuscriptStyle } from "@/lib/manuscript/bibliography";
 import { collectCitedWorkKeys, buildBibliography } from "@/lib/manuscript/bibliography";
-import {
-  deleteManuscript,
-  findManuscript,
-  saveManuscript,
-} from "@/lib/manuscript/repository";
+import { deleteManuscript, findManuscript, saveManuscript } from "@/lib/manuscript/repository";
 import { resolveWorks } from "@/lib/manuscript/resolve";
 import type { CitationStyle } from "@/lib/citations";
 import type { DocNode } from "@/lib/manuscript/types";
@@ -81,7 +77,11 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     const order = collectCitedWorkKeys(found?.doc as DocNode);
     const resolved = await resolveWorks(auth.user.id, order);
     return NextResponse.json({
-      bibliography: buildBibliography(order, resolved, (found?.citationStyle ?? "apa") as CitationStyle),
+      bibliography: buildBibliography(
+        order,
+        resolved,
+        (found?.citationStyle ?? "apa") as CitationStyle,
+      ),
     });
   } catch (err) {
     logger.error({ event: "manuscript_save_failed", err: String(err) }, "manuscript save failed");

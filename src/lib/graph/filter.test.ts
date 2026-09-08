@@ -2,10 +2,7 @@ import { describe, it, expect } from "vitest";
 import { applyGraphFilters, collapseNode, EMPTY_GRAPH_FILTERS } from "@/lib/graph/filter";
 import type { GraphNode, GraphState } from "@/lib/graph/model";
 
-function node(
-  id: string,
-  overrides: Partial<GraphNode> = {},
-): GraphNode {
+function node(id: string, overrides: Partial<GraphNode> = {}): GraphNode {
   return {
     id,
     workKey: id,

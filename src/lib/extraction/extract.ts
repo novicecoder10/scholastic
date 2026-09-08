@@ -78,7 +78,10 @@ export async function interpretTable(table: ExtractedTable): Promise<Interpreted
     }
     return { ...table, ...validated };
   } catch (err) {
-    logger.warn({ event: "table_interpretation_failed", err: String(err) }, "interpretation failed");
+    logger.warn(
+      { event: "table_interpretation_failed", err: String(err) },
+      "interpretation failed",
+    );
     return unlabelled;
   }
 }
@@ -139,9 +142,7 @@ export async function extractFindings(documentId: string): Promise<Finding[]> {
     }
     if (!metered) break;
 
-    const excerpts = chunks
-      .map((c) => `[page ${c.pageStart}]\n${c.content}`)
-      .join("\n\n---\n\n");
+    const excerpts = chunks.map((c) => `[page ${c.pageStart}]\n${c.content}`).join("\n\n---\n\n");
 
     try {
       const raw = await metered.provider.complete({

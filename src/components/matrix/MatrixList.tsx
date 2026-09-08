@@ -25,9 +25,10 @@ export function MatrixList({ matrices }: { matrices: MatrixSummary[] }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title }),
     });
-    const body = (await response.json().catch(() => null)) as
-      | { error?: string; publicId?: string }
-      | null;
+    const body = (await response.json().catch(() => null)) as {
+      error?: string;
+      publicId?: string;
+    } | null;
     if (!response.ok || !body?.publicId) {
       setError(body?.error ?? "Couldn't create that matrix.");
       return;

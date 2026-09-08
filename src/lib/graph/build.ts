@@ -1,4 +1,11 @@
-import { endpointId, MAX_NODES, type CitationRef, type GraphLink, type GraphNode, type GraphState } from "@/lib/graph/model";
+import {
+  endpointId,
+  MAX_NODES,
+  type CitationRef,
+  type GraphLink,
+  type GraphNode,
+  type GraphState,
+} from "@/lib/graph/model";
 import { resolveRef } from "@/lib/graph/identity";
 
 export interface SeedRoot {

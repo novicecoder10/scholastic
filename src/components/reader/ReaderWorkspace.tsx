@@ -73,10 +73,13 @@ export function ReaderWorkspace({
    * onReady callback because scrollToPage does not exist until the pane has
    * measured itself.
    */
-  const handleReady = useCallback((handle: PdfPaneHandle) => {
-    setPane(handle);
-    if (initialPage) handle.scrollToPage(initialPage);
-  }, [initialPage]);
+  const handleReady = useCallback(
+    (handle: PdfPaneHandle) => {
+      setPane(handle);
+      if (initialPage) handle.scrollToPage(initialPage);
+    },
+    [initialPage],
+  );
 
   const handleCitePage = useCallback(
     (page: number) => {

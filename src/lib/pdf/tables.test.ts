@@ -171,15 +171,33 @@ describe("detectTables", () => {
 
   it("finds two tables separated by prose on one page", () => {
     const first = [
-      ...row(700, [["A", 50], ["B", 200]]),
-      ...row(680, [["1", 50], ["2", 200]]),
-      ...row(660, [["3", 50], ["4", 200]]),
+      ...row(700, [
+        ["A", 50],
+        ["B", 200],
+      ]),
+      ...row(680, [
+        ["1", 50],
+        ["2", 200],
+      ]),
+      ...row(660, [
+        ["3", 50],
+        ["4", 200],
+      ]),
     ];
     const prose = [item("These results are discussed at length below.", 50, 620)];
     const second = [
-      ...row(560, [["C", 50], ["D", 200]]),
-      ...row(540, [["5", 50], ["6", 200]]),
-      ...row(520, [["7", 50], ["8", 200]]),
+      ...row(560, [
+        ["C", 50],
+        ["D", 200],
+      ]),
+      ...row(540, [
+        ["5", 50],
+        ["6", 200],
+      ]),
+      ...row(520, [
+        ["7", 50],
+        ["8", 200],
+      ]),
     ];
     expect(detectTables(1, [...first, ...prose, ...second])).toHaveLength(2);
   });
@@ -187,18 +205,36 @@ describe("detectTables", () => {
   it("picks up a caption above the table", () => {
     const items = [
       item("Table 2. Baseline characteristics", 50, 720),
-      ...row(700, [["A", 50], ["B", 200]]),
-      ...row(680, [["1", 50], ["2", 200]]),
-      ...row(660, [["3", 50], ["4", 200]]),
+      ...row(700, [
+        ["A", 50],
+        ["B", 200],
+      ]),
+      ...row(680, [
+        ["1", 50],
+        ["2", 200],
+      ]),
+      ...row(660, [
+        ["3", 50],
+        ["4", 200],
+      ]),
     ];
     expect(detectTables(1, items)[0].caption).toBe("Table 2. Baseline characteristics");
   });
 
   it("picks up a caption below the table", () => {
     const items = [
-      ...row(700, [["A", 50], ["B", 200]]),
-      ...row(680, [["1", 50], ["2", 200]]),
-      ...row(660, [["3", 50], ["4", 200]]),
+      ...row(700, [
+        ["A", 50],
+        ["B", 200],
+      ]),
+      ...row(680, [
+        ["1", 50],
+        ["2", 200],
+      ]),
+      ...row(660, [
+        ["3", 50],
+        ["4", 200],
+      ]),
       item("Table 3 Effect sizes by subgroup", 50, 640),
     ];
     expect(detectTables(1, items)[0].caption).toBe("Table 3 Effect sizes by subgroup");
@@ -228,8 +264,14 @@ describe("detectTables", () => {
 
   it("finds no table in a single aligned pair of lines", () => {
     const items = [
-      ...row(700, [["Author", 50], ["Year", 200]]),
-      ...row(680, [["Lin", 50], ["2006", 200]]),
+      ...row(700, [
+        ["Author", 50],
+        ["Year", 200],
+      ]),
+      ...row(680, [
+        ["Lin", 50],
+        ["2006", 200],
+      ]),
     ];
     expect(detectTables(1, items)).toEqual([]);
   });
@@ -251,7 +293,6 @@ describe("columnBands", () => {
       { start: 200, end: 205 },
     ]);
   });
-
 });
 
 describe("tableConfidence", () => {

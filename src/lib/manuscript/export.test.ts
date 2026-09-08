@@ -67,8 +67,13 @@ describe("markdown export", () => {
       type: "doc",
       content: [{ type: "paragraph", content: [{ type: "citation", attrs: { workKey: "gone" } }] }],
     };
-    const content = exportManuscript(broken, "t", new Map([["gone", null]]), "apa", "markdown")
-      .content;
+    const content = exportManuscript(
+      broken,
+      "t",
+      new Map([["gone", null]]),
+      "apa",
+      "markdown",
+    ).content;
     // Inline and in the bibliography. Dropping it would leave the claim
     // standing with no attribution.
     expect(content.match(/\[missing citation\]/g)?.length).toBe(2);

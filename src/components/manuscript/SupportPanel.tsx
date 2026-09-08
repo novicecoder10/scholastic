@@ -42,9 +42,10 @@ export function SupportPanel({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ claim }),
       });
-      const body = (await response.json().catch(() => null)) as
-        | { error?: string; candidates?: Candidate[] }
-        | null;
+      const body = (await response.json().catch(() => null)) as {
+        error?: string;
+        candidates?: Candidate[];
+      } | null;
       if (!response.ok) {
         onNotice(body?.error ?? "Couldn't look for support.");
         return;

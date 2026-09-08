@@ -7,7 +7,12 @@ import { GraphControls } from "@/components/graph/GraphControls";
 import { GraphFallbackList } from "@/components/graph/GraphFallbackList";
 import { markExpanded, mergeGraph, refsToGraph } from "@/lib/graph/build";
 import { inDegreeWithinSet, summarise } from "@/lib/graph/analysis";
-import { applyGraphFilters, collapseNode, EMPTY_GRAPH_FILTERS, type GraphFilters } from "@/lib/graph/filter";
+import {
+  applyGraphFilters,
+  collapseNode,
+  EMPTY_GRAPH_FILTERS,
+  type GraphFilters,
+} from "@/lib/graph/filter";
 import {
   endpointId,
   MAX_NODES,
@@ -226,8 +231,8 @@ export function CitationGraph({
 
       <p className="text-muted mb-2 text-xs">
         Click a node to inspect it. Double-click, or press Enter with it selected, to expand its
-        citations. Arrow keys follow edges; Escape deselects. Click an edge to ask why that
-        citation exists.
+        citations. Arrow keys follow edges; Escape deselects. Click an edge to ask why that citation
+        exists.
       </p>
 
       <div className="flex flex-col gap-4 lg:flex-row">
@@ -288,9 +293,7 @@ export function CitationGraph({
             inLibrary={selected ? Boolean(libraryKeys?.has(selected.workKey)) : false}
             inDegree={selected ? (inDegree.get(selected.id) ?? 0) : undefined}
             onExpand={() => selected && void expand(selected)}
-            onCollapse={() =>
-              selected && setState((current) => collapseNode(current, selected.id))
-            }
+            onCollapse={() => selected && setState((current) => collapseNode(current, selected.id))}
             onCite={onCite}
           />
         </div>

@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCitationReasoning, CitationReasoningDisabledError } from "@/lib/ai/citations/reasoning";
-import {
-  insufficientCreditsResponse,
-  isInsufficientCredits,
-} from "@/lib/credits/apiResponse";
+import { insufficientCreditsResponse, isInsufficientCredits } from "@/lib/credits/apiResponse";
 import { logger } from "@/lib/log/logger";
 
 interface RequestBody {

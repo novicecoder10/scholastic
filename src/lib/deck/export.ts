@@ -69,6 +69,10 @@ export function renderDeckMarkdown(
 }
 
 export function deckFilename(deckTitle: string): string {
-  const stem = deckTitle.replace(/[^A-Za-z0-9 _-]/g, "").trim().slice(0, 60) || "deck";
+  const stem =
+    deckTitle
+      .replace(/[^A-Za-z0-9 _-]/g, "")
+      .trim()
+      .slice(0, 60) || "deck";
   return `${stem}.md`;
 }

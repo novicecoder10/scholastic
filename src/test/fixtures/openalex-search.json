@@ -20,9 +20,7 @@
           "display_name": "arXiv",
           "id": "https://openalex.org/S4306400194",
           "issn_l": "2331-8422",
-          "issn": [
-            "2331-8422"
-          ],
+          "issn": ["2331-8422"],
           "type": "repository",
           "host_organization_name": "Cornell University",
           "is_in_doaj": false
@@ -50,21 +48,11 @@
       ],
       "cited_by_count": 120000,
       "abstract_inverted_index": {
-        "The": [
-          0
-        ],
-        "dominant": [
-          1
-        ],
-        "sequence": [
-          2
-        ],
-        "transduction": [
-          3
-        ],
-        "models": [
-          4
-        ]
+        "The": [0],
+        "dominant": [1],
+        "sequence": [2],
+        "transduction": [3],
+        "models": [4]
       }
     },
     {

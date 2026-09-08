@@ -55,10 +55,7 @@ is the load-bearing structural decision in this spec.
 ```ts
 // lib/manuscript/bibliography.ts — pure over the doc JSON
 export function collectCitedWorkKeys(doc: JSONContent): string[];
-export function buildBibliography(
-  works: CanonicalWork[],
-  style: CitationStyle,
-): string[];
+export function buildBibliography(works: CanonicalWork[], style: CitationStyle): string[];
 ```
 
 Walk the document, collect `workKey`s in first-appearance order, dedupe,
@@ -83,12 +80,12 @@ plagiarism risk, not a rendering bug.
 All selection-scoped, all streaming into the editor, all reversible through the
 editor's own undo stack.
 
-| Operation | Input | Effect |
-| --- | --- | --- |
-| Rewrite for clarity | selection | Replaces selection. `POST /api/paraphrase` from #4, unchanged. |
-| Tighten | selection | Replaces selection. Same endpoint, `concise` mode. |
-| Explain | selection | Side-panel explanation, no document mutation. |
-| Find support | selection (a claim) | Ranked candidate works; the user picks one, which inserts a citation node. |
+| Operation           | Input               | Effect                                                                     |
+| ------------------- | ------------------- | -------------------------------------------------------------------------- |
+| Rewrite for clarity | selection           | Replaces selection. `POST /api/paraphrase` from #4, unchanged.             |
+| Tighten             | selection           | Replaces selection. Same endpoint, `concise` mode.                         |
+| Explain             | selection           | Side-panel explanation, no document mutation.                              |
+| Find support        | selection (a claim) | Ranked candidate works; the user picks one, which inserts a citation node. |
 
 ### The AI never attaches a citation on its own
 
@@ -168,12 +165,12 @@ with a sign-in prompt.
 
 ## Export
 
-| Format | How |
-| --- | --- |
+| Format   | How                                                       |
+| -------- | --------------------------------------------------------- |
 | Markdown | Body plus a bibliography section, labels per active style |
-| BibTeX | #4's formatter over the resolved works |
-| RIS | #4's formatter |
-| LaTeX | Body with `\cite{key}`, plus a matching `.bib` |
+| BibTeX   | #4's formatter over the resolved works                    |
+| RIS      | #4's formatter                                            |
+| LaTeX    | Body with `\cite{key}`, plus a matching `.bib`            |
 
 LaTeX is nearly free once BibTeX exists — the same keys serve both.
 

@@ -4,10 +4,7 @@ import {
   SummaryFeatureDisabledError,
   WorkNotFoundError,
 } from "@/lib/ai/summary";
-import {
-  insufficientCreditsResponse,
-  isInsufficientCredits,
-} from "@/lib/credits/apiResponse";
+import { insufficientCreditsResponse, isInsufficientCredits } from "@/lib/credits/apiResponse";
 import { logger } from "@/lib/log/logger";
 
 interface RouteParams {

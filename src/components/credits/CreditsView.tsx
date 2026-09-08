@@ -184,7 +184,9 @@ export function CreditsView({
                 <span className={`metric ${row.delta < 0 ? "text-muted" : "text-accent"}`}>
                   {row.delta > 0 ? `+${row.delta}` : row.delta}
                 </span>
-                <span className="metric text-muted w-12 text-right text-xs">{row.balanceAfter}</span>
+                <span className="metric text-muted w-12 text-right text-xs">
+                  {row.balanceAfter}
+                </span>
               </li>
             ))}
           </ul>

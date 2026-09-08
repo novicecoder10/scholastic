@@ -92,8 +92,8 @@ export default async function GraphPage({ searchParams }: PageProps) {
       <main className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-8">
         <h1 className="text-ink text-2xl font-semibold tracking-tight">Citation map</h1>
         <p className="text-muted mt-2 mb-6 text-sm">
-          Seeded from several papers at once, the edges between them are what show a shared
-          ancestor — four results citing the same 1998 paper is a fact about a literature that no
+          Seeded from several papers at once, the edges between them are what show a shared ancestor
+          — four results citing the same 1998 paper is a fact about a literature that no
           single-paper graph can tell you.
         </p>
 
@@ -170,7 +170,12 @@ async function seedsFromWorkKeys(workKeys: string[]): Promise<SeedRoot[]> {
   const found = new Map(rows.map((row) => [row.workKey, row]));
   return workKeys.map(
     (key) =>
-      found.get(key) ?? { workKey: key, title: key.replace(/^doi:/, ""), doi: doiFrom(key), year: null },
+      found.get(key) ?? {
+        workKey: key,
+        title: key.replace(/^doi:/, ""),
+        doi: doiFrom(key),
+        year: null,
+      },
   );
 }
 

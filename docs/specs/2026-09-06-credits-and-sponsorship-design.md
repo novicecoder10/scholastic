@@ -23,11 +23,11 @@ The design problem is **stewardship of a shared resource**, not metering.
 
 Conflating these is the failure mode this design exists to avoid.
 
-| Concept | What it is | Unit |
-| --- | --- | --- |
-| Capacity | Real API keys and the quota behind them | provider tokens |
-| Credits | A user's claim on that capacity | credits |
-| Contribution | What earns a claim | verified works / reviews |
+| Concept      | What it is                              | Unit                     |
+| ------------ | --------------------------------------- | ------------------------ |
+| Capacity     | Real API keys and the quota behind them | provider tokens          |
+| Credits      | A user's claim on that capacity         | credits                  |
+| Contribution | What earns a claim                      | verified works / reviews |
 
 Capacity is finite and externally denominated. Credits are an internal
 allocation currency. Contribution is the input that mints them. Keeping them
@@ -52,7 +52,7 @@ capacity_source
   index(status, providerId)
 ```
 
-**Keys are never stored in the database.** `credentialRef` holds the *name* of
+**Keys are never stored in the database.** `credentialRef` holds the _name_ of
 an environment variable; the secret itself lives in the environment exactly
 like every other credential in this project. A sponsor onboarding flow that
 accepts a pasted API key into a web form is an explicit non-goal — it would be
@@ -116,7 +116,7 @@ convenience updated in the same transaction, with a reconciliation check
 (`sum(delta) == balance`) exercised in tests and available as a maintenance
 query.
 
-A bare balance column can tell a user *12* but never *why 12*. In a commons,
+A bare balance column can tell a user _12_ but never _why 12_. In a commons,
 unexplainable accounting is a trust problem, not a UX problem — which is why
 the ledger, not the counter, is canonical.
 
@@ -128,11 +128,7 @@ consumption:
 
 ```ts
 // lib/credits/cost.ts — pure, no I/O
-export function creditsForUsage(
-  tier: string,
-  inputTokens: number,
-  outputTokens: number,
-): number;
+export function creditsForUsage(tier: string, inputTokens: number, outputTokens: number): number;
 ```
 
 **Free forever, never debited:** search and provider fan-out, dedupe, merge,
@@ -157,7 +153,7 @@ errors: "must never affect the response." Debiting must be reliable. These are
 resolved rather than compromised:
 
 1. **Pre-flight** (blocking, before the LLM call): read balance, compare to a
-   conservative estimate for the operation. Insufficient → refuse *before*
+   conservative estimate for the operation. Insufficient → refuse _before_
    spending anything, with a clear message. This is the only place credits can
    block a request.
 2. **Debit** (non-blocking, on completion): the `onUsage` callback writes the
@@ -171,12 +167,12 @@ accumulate.
 
 ## Earning
 
-| Source | Amount | Idempotency |
-| --- | --- | --- |
-| Welcome grant | generous, env-tunable, published | one per user |
-| Periodic replenishment | monthly top-up **to a floor** | `replenish:<yyyy-mm>` |
-| Verified publication | per indexed work, diminishing | `work:<openAlexId>` |
-| Verified peer review | per review record | `review:<orcidPutCode>` |
+| Source                 | Amount                           | Idempotency             |
+| ---------------------- | -------------------------------- | ----------------------- |
+| Welcome grant          | generous, env-tunable, published | one per user            |
+| Periodic replenishment | monthly top-up **to a floor**    | `replenish:<yyyy-mm>`   |
+| Verified publication   | per indexed work, diminishing    | `work:<openAlexId>`     |
+| Verified peer review   | per review record                | `review:<orcidPutCode>` |
 
 The welcome grant is sized so a new researcher can complete a genuine
 literature review on day one. The monthly figure tops a balance **up to** a
@@ -209,13 +205,13 @@ credential.
 
 ## Degradation
 
-| Condition | Behavior |
-| --- | --- |
-| Accounts disabled (#5 off) | Credits off entirely; instance is unmetered |
-| Postgres unreachable | **Fail open** — AI features run unmetered, logged |
-| No sponsor capacity | Operator capacity serves everyone |
-| No capacity at all | Existing 503, unchanged |
-| Balance at zero | Free surface stays fully usable |
+| Condition                  | Behavior                                          |
+| -------------------------- | ------------------------------------------------- |
+| Accounts disabled (#5 off) | Credits off entirely; instance is unmetered       |
+| Postgres unreachable       | **Fail open** — AI features run unmetered, logged |
+| No sponsor capacity        | Operator capacity serves everyone                 |
+| No capacity at all         | Existing 503, unchanged                           |
+| Balance at zero            | Free surface stays fully usable                   |
 
 **Fail open is a chosen trade-off, not an oversight.** A commons that refuses
 service because its bookkeeping is offline is worse than one that occasionally
@@ -253,18 +249,18 @@ balances private removes the incentive structurally rather than policing it.
 
 ## Modules
 
-| Path | Purpose |
-| --- | --- |
-| `lib/credits/cost.ts` | Pure token→credit function |
-| `lib/credits/ledger.ts` | Append row + update balance, one transaction |
-| `lib/credits/grants.ts` | Welcome, replenishment, contribution grants |
-| `lib/credits/preflight.ts` | Estimate + balance check before an LLM call |
-| `lib/capacity/sources.ts` | Source selection, cap accounting, period rollover |
-| `lib/orcid/oauth.ts` | ORCID OAuth flow |
-| `lib/orcid/contributions.ts` | OpenAlex works + ORCID reviews → grantable items |
-| `app/credits/page.tsx` | Private balance and ledger |
-| `app/sponsors/page.tsx` | Public sponsor list |
-| `app/api/credits/check-contributions/route.ts` | On-demand grant run |
+| Path                                           | Purpose                                           |
+| ---------------------------------------------- | ------------------------------------------------- |
+| `lib/credits/cost.ts`                          | Pure token→credit function                        |
+| `lib/credits/ledger.ts`                        | Append row + update balance, one transaction      |
+| `lib/credits/grants.ts`                        | Welcome, replenishment, contribution grants       |
+| `lib/credits/preflight.ts`                     | Estimate + balance check before an LLM call       |
+| `lib/capacity/sources.ts`                      | Source selection, cap accounting, period rollover |
+| `lib/orcid/oauth.ts`                           | ORCID OAuth flow                                  |
+| `lib/orcid/contributions.ts`                   | OpenAlex works + ORCID reviews → grantable items  |
+| `app/credits/page.tsx`                         | Private balance and ledger                        |
+| `app/sponsors/page.tsx`                        | Public sponsor list                               |
+| `app/api/credits/check-contributions/route.ts` | On-demand grant run                               |
 
 `lib/ai/llm/index.ts` and `lib/ai/llm/usage.ts` are modified, not replaced.
 

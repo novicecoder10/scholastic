@@ -12,7 +12,10 @@ import { estimateCredits } from "@/lib/credits/cost";
  */
 export function CostHint({ feature, className = "" }: { feature: string; className?: string }) {
   return (
-    <span className={`text-muted text-[11px] ${className}`} title="Estimated — you're charged for the tokens actually used">
+    <span
+      className={`text-muted text-[11px] ${className}`}
+      title="Estimated — you're charged for the tokens actually used"
+    >
       ~{estimateCredits(feature)} credits
     </span>
   );

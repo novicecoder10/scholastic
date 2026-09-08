@@ -63,9 +63,9 @@ upload endpoint has ever had.
 ```ts
 interface ChatRequestBody {
   messages: ChatMessage[];
-  context?: string;      // single-paper: title + abstract
+  context?: string; // single-paper: title + abstract
   works?: SynthesisWork[]; // multi-paper synthesis
-  documentId?: string;   // NEW — full-text chat over an uploaded PDF
+  documentId?: string; // NEW — full-text chat over an uploaded PDF
   mode?: ChatMode;
   rankingQuery?: string;
 }
@@ -185,8 +185,9 @@ Assistant answers contain `[p. 7]`. A pure function turns those into buttons:
 
 ```ts
 // lib/documents/pageCitations.ts
-export function splitPageCitations(text: string):
-  Array<{ type: "text"; value: string } | { type: "citation"; page: number }>;
+export function splitPageCitations(
+  text: string,
+): Array<{ type: "text"; value: string } | { type: "citation"; page: number }>;
 ```
 
 `ChatPanel` renders the result, and a citation button calls `onCitePage(7)`,
@@ -201,10 +202,10 @@ tested in this repo's node-only vitest, with no jsdom and no renderer.
 logic is identical across its two context modes and only the payload differs.
 This adds a third mode rather than forking the component:
 
-| New prop | Purpose |
-| --- | --- |
-| `documentId?: string` | Sent to `/api/chat` instead of `context` / `works` |
-| `onCitePage?: (page: number) => void` | Makes `[p. N]` interactive; without it, citations render as plain text |
+| New prop                               | Purpose                                                                 |
+| -------------------------------------- | ----------------------------------------------------------------------- |
+| `documentId?: string`                  | Sent to `/api/chat` instead of `context` / `works`                      |
+| `onCitePage?: (page: number) => void`  | Makes `[p. N]` interactive; without it, citations render as plain text  |
 | `variant?: "disclosure" \| "embedded"` | The reader needs a full-height always-open pane, not a collapsed toggle |
 
 `variant` defaults to `"disclosure"`, so every existing call site is
@@ -212,22 +213,22 @@ unchanged.
 
 ## States and failure modes
 
-| State | Behavior |
-| --- | --- |
-| Document still indexing | `retrieveChunks` calls `ensureIndexed` and would block — possibly a minute on the local embedding backend. So the reader polls `GET /api/documents/[id]` and keeps the composer disabled with visible progress until `status: 'indexed'`. Chat is only ever reachable warm. |
-| No LLM configured | The existing 503 path and `ChatPanel`'s existing disabled state. Unchanged. |
-| Lexical retrieval fallback (#2) | Answers get measurably worse. Surfaced as a quiet notice in the chat header rather than hidden — the user should know why quality dropped. |
-| Document deleted mid-session | The next chat turn 404s; the reader shows a "this document is gone" state rather than a stuck spinner. |
-| PDF renders but retrieval finds nothing | The model is instructed to say the excerpts do not cover it. Not an error state. |
+| State                                   | Behavior                                                                                                                                                                                                                                                                    |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Document still indexing                 | `retrieveChunks` calls `ensureIndexed` and would block — possibly a minute on the local embedding backend. So the reader polls `GET /api/documents/[id]` and keeps the composer disabled with visible progress until `status: 'indexed'`. Chat is only ever reachable warm. |
+| No LLM configured                       | The existing 503 path and `ChatPanel`'s existing disabled state. Unchanged.                                                                                                                                                                                                 |
+| Lexical retrieval fallback (#2)         | Answers get measurably worse. Surfaced as a quiet notice in the chat header rather than hidden — the user should know why quality dropped.                                                                                                                                  |
+| Document deleted mid-session            | The next chat turn 404s; the reader shows a "this document is gone" state rather than a stuck spinner.                                                                                                                                                                      |
+| PDF renders but retrieval finds nothing | The model is instructed to say the excerpts do not cover it. Not an error state.                                                                                                                                                                                            |
 
 ## Testing
 
 vitest, node environment. Pure logic is covered properly:
 
-| Test | Covers |
-| --- | --- |
-| `pageCitations.test.ts` | `[p. 7]`, multiple, adjacent, malformed (`[p. ]`, `[p. abc]`), none at all, a citation split across a streaming chunk boundary |
-| `chatContext.test.ts` | Chunk → page-attributed block formatting; empty retrieval; a chunk spanning a page range |
+| Test                    | Covers                                                                                                                                                                                                           |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pageCitations.test.ts` | `[p. 7]`, multiple, adjacent, malformed (`[p. ]`, `[p. abc]`), none at all, a citation split across a streaming chunk boundary                                                                                   |
+| `chatContext.test.ts`   | Chunk → page-attributed block formatting; empty retrieval; a chunk spanning a page range                                                                                                                         |
 | `/api/chat` route tests | `documentId` + `context` together → 400; unowned document → 404; happy path streams with document context; ranking uses the **latest** message, not the first; all three existing modes still behave identically |
 
 ### The coverage gap, stated plainly

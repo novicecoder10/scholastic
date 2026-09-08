@@ -79,11 +79,7 @@ export function inDegreeWithinSet(state: GraphState): Map<string, number> {
  * Breadth-first, so the first path found is a shortest one. Returns null when
  * no directed path exists, which is a real and common answer.
  */
-export function shortestCitationPath(
-  state: GraphState,
-  from: string,
-  to: string,
-): string[] | null {
+export function shortestCitationPath(state: GraphState, from: string, to: string): string[] | null {
   if (from === to) return state.nodes.some((n) => n.id === from) ? [from] : null;
   const adj = adjacency(state, true);
   if (!adj.has(from) || !adj.has(to)) return null;

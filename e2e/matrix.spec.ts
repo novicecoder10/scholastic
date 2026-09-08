@@ -39,10 +39,13 @@ test.describe("evidence matrix", () => {
     // Playwright's APIRequestContext drops it over plain http where the browser
     // keeps it. Through `page.request` this endpoint answers 404 for its own
     // owner, which looks exactly like the bug it would be if it were real.
-    const csv = await page.evaluate(async (target: string) => {
-      const response = await fetch(target);
-      return { status: response.status, body: await response.text() };
-    }, `${url.replace("/matrix/", "/api/matrix/")}/export`);
+    const csv = await page.evaluate(
+      async (target: string) => {
+        const response = await fetch(target);
+        return { status: response.status, body: await response.text() };
+      },
+      `${url.replace("/matrix/", "/api/matrix/")}/export`,
+    );
     expect(csv.status).toBe(200);
     const header = csv.body.split("\r\n")[0];
     expect(header).toContain("sample size");

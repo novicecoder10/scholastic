@@ -100,9 +100,7 @@ export async function grantForContributions(
 
   for (const contribution of contributions) {
     const key =
-      contribution.kind === "publication"
-        ? `work:${contribution.id}`
-        : `review:${contribution.id}`;
+      contribution.kind === "publication" ? `work:${contribution.id}` : `review:${contribution.id}`;
 
     if (await hasGrant(userId, key)) {
       alreadyCounted += 1;

@@ -64,7 +64,8 @@ export async function preflight(owner: Owner | null, feature: string): Promise<P
     const allowance = anonymousAllowanceCredits();
     const used = await anonymousUsed(owner.sessionId);
     const remaining = Math.max(0, allowance - used);
-    if (remaining >= estimate) return { allowed: true, estimate, balance: remaining, metered: true };
+    if (remaining >= estimate)
+      return { allowed: true, estimate, balance: remaining, metered: true };
     return {
       allowed: false,
       estimate,

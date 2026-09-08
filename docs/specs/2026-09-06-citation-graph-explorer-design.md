@@ -27,13 +27,13 @@ identity with the rest of the app, and adds deterministic structural analysis.
 `CitationGraph.tsx` (317 lines), so none of it is testable. That is inverted
 before anything is added:
 
-| Module | Contents |
-| --- | --- |
-| `lib/graph/model.ts` | `GraphNode`, `GraphLink`, `GraphState`. No React. |
-| `lib/graph/build.ts` | Refs to nodes/links, dedupe, capping, merge on expand |
-| `lib/graph/analysis.ts` | Components, in-degree, shortest path, year layering |
-| `lib/graph/filter.ts` | Year range, minimum degree, collapse, hide unresolved |
-| `lib/graph/identity.ts` | Citation ref to `workKey`, with the unresolved path |
+| Module                  | Contents                                              |
+| ----------------------- | ----------------------------------------------------- |
+| `lib/graph/model.ts`    | `GraphNode`, `GraphLink`, `GraphState`. No React.     |
+| `lib/graph/build.ts`    | Refs to nodes/links, dedupe, capping, merge on expand |
+| `lib/graph/analysis.ts` | Components, in-degree, shortest path, year layering   |
+| `lib/graph/filter.ts`   | Year range, minimum degree, collapse, hide unresolved |
+| `lib/graph/identity.ts` | Citation ref to `workKey`, with the unresolved path   |
 
 `CitationGraph.tsx` becomes a renderer over those modules. Every behaviour
 above is then covered by node-environment vitest, which is the only reason the
@@ -55,7 +55,7 @@ of the app uses.
 // lib/graph/identity.ts
 export interface ResolvedRef {
   workKey: string;
-  resolved: boolean;   // false => provisional, not expandable
+  resolved: boolean; // false => provisional, not expandable
   doi: string | null;
   title: string | null;
   year: number | null;
@@ -91,19 +91,19 @@ Because the graph finally speaks the app's identity:
 Right-click to expand is undiscoverable and impossible on touch. The tell is
 that the component currently explains it in a paragraph of prose.
 
-| Gesture | Effect |
-| --- | --- |
-| Click / tap | Select node, open inspector |
-| Double-click, or Enter on selection | Expand that node's citations |
-| Escape | Deselect |
-| Arrow keys | Move selection along edges |
-| Hover | Highlight connections (unchanged) |
-| Click an edge | Citation reasoning (unchanged) |
+| Gesture                             | Effect                            |
+| ----------------------------------- | --------------------------------- |
+| Click / tap                         | Select node, open inspector       |
+| Double-click, or Enter on selection | Expand that node's citations      |
+| Escape                              | Deselect                          |
+| Arrow keys                          | Move selection along edges        |
+| Hover                               | Highlight connections (unchanged) |
+| Click an edge                       | Citation reasoning (unchanged)    |
 
 The doi.org jump moves into the inspector as an explicit link rather than being
 the default click action. This fixes what the existing hover comment already
-concedes: *"clicking a node navigates away to the paper's page rather than
-being available to 'just look.'"*
+concedes: _"clicking a node navigates away to the paper's page rather than
+being available to 'just look.'"_
 
 ### Accessibility
 
@@ -125,11 +125,11 @@ for doing so. Added:
 
 `/graph` is a real page, seeded three ways:
 
-| URL | Seed |
-| --- | --- |
-| `/graph?work=<workKey>` | One paper — what the card graph does today |
-| `/graph?collection=<publicId>` | A #5 collection |
-| `/graph?from=search&q=<query>` | The current result set |
+| URL                            | Seed                                       |
+| ------------------------------ | ------------------------------------------ |
+| `/graph?work=<workKey>`        | One paper — what the card graph does today |
+| `/graph?collection=<publicId>` | A #5 collection                            |
+| `/graph?from=search&q=<query>` | The current result set                     |
 
 Edges are drawn between roots wherever citation data connects them. That is the
 actual value of the multi-root form: seeing that four of twenty results all

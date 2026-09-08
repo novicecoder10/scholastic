@@ -58,10 +58,7 @@ export async function markExtraction(
 
 /** Re-extraction replaces, so a document never holds two contradictory sets of
  * numbers from two runs of a changing model. */
-export async function replaceTables(
-  documentId: string,
-  tables: InterpretedTable[],
-): Promise<void> {
+export async function replaceTables(documentId: string, tables: InterpretedTable[]): Promise<void> {
   await getDb().transaction(async (tx) => {
     await tx.delete(extractedTable).where(eq(extractedTable.documentId, documentId));
     if (tables.length === 0) return;
@@ -200,7 +197,13 @@ export async function addColumn(
 ) {
   const [row] = await getDb()
     .insert(matrixColumn)
-    .values({ matrixId, position: await nextPosition(matrixColumn, matrixId), label, hint, valueType })
+    .values({
+      matrixId,
+      position: await nextPosition(matrixColumn, matrixId),
+      label,
+      hint,
+      valueType,
+    })
     .returning();
   await touch(matrixId);
   return row;

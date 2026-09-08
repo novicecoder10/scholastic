@@ -45,7 +45,8 @@ export async function extractPositions(bytes: Uint8Array): Promise<PagePositions
         width: typeof raw.width === "number" ? raw.width : text.length * (transform[0] || 1),
         // `height` is the glyph box; transform[3] is the font scale and is the
         // more reliable of the two when a producer omits height.
-        height: typeof raw.height === "number" && raw.height > 0 ? raw.height : (transform[3] ?? 10),
+        height:
+          typeof raw.height === "number" && raw.height > 0 ? raw.height : (transform[3] ?? 10),
       });
     }
     pages.push({ pageNumber, items });

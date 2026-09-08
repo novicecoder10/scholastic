@@ -416,7 +416,9 @@ export function ChatPanel({
             </div>
             <p className="text-muted mt-1 px-1 text-[11px]">
               Enter to send · Shift+Enter for a new line ·{" "}
-              <CostHint feature={documentId ? "document_chat_turn" : works ? "synthesis_turn" : "chat_turn"} />
+              <CostHint
+                feature={documentId ? "document_chat_turn" : works ? "synthesis_turn" : "chat_turn"}
+              />
             </p>
           </>
         )}

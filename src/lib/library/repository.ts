@@ -161,7 +161,11 @@ const UNIQUE_VIOLATION = "23505";
 
 function isUniqueViolation(err: unknown, constraintName: string): boolean {
   for (let current = err; current; current = (current as { cause?: unknown }).cause) {
-    const candidate = current as { code?: unknown; constraint_name?: unknown; constraint?: unknown };
+    const candidate = current as {
+      code?: unknown;
+      constraint_name?: unknown;
+      constraint?: unknown;
+    };
     if (candidate.code !== UNIQUE_VIOLATION) continue;
     const named = candidate.constraint_name ?? candidate.constraint;
     if (named === undefined || named === constraintName) return true;

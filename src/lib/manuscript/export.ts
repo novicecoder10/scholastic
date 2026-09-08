@@ -113,7 +113,12 @@ export interface ExportResult {
 }
 
 function safeStem(title: string): string {
-  return title.replace(/[^A-Za-z0-9 _-]/g, "").trim().slice(0, 60) || "manuscript";
+  return (
+    title
+      .replace(/[^A-Za-z0-9 _-]/g, "")
+      .trim()
+      .slice(0, 60) || "manuscript"
+  );
 }
 
 export function exportManuscript(

@@ -15,7 +15,11 @@
         "abstractText": "We describe a novel approach to gene editing.",
         "fullTextUrlList": {
           "fullTextUrl": [
-            { "url": "https://europepmc.org/articles/PMC1234/pdf", "documentStyle": "pdf", "availability": "Open access" }
+            {
+              "url": "https://europepmc.org/articles/PMC1234/pdf",
+              "documentStyle": "pdf",
+              "availability": "Open access"
+            }
           ]
         }
       },

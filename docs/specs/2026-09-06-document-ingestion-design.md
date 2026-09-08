@@ -70,7 +70,7 @@ recommended option:
 
 ## Approaches considered
 
-The genuine architectural fork is *when* the expensive work runs. Embedding a
+The genuine architectural fork is _when_ the expensive work runs. Embedding a
 40-page paper produces roughly 200 chunks; on the local `@xenova/transformers`
 backend that is minutes of CPU inference. It cannot happen inside the upload
 request.
@@ -114,17 +114,17 @@ appears later, C becomes worth revisiting.
 Each module has one purpose, a stated dependency set, and can be understood
 without reading its neighbours.
 
-| Module | Purpose | Depends on |
-| --- | --- | --- |
-| `lib/storage/blobStore.ts` | The `BlobStore` interface — `put` / `get` / `delete` over opaque keys | nothing |
-| `lib/storage/localDisk.ts` | Filesystem implementation rooted at `UPLOAD_DIR` | `node:fs` |
-| `lib/storage/index.ts` | `getBlobStore()`, env-selected — same shape as `lib/providers/registry.ts` | the two above |
-| `lib/pdf/extract.ts` | `unpdf` wrapper returning `{ pageCount, pages: string[], title? }` | `unpdf` |
-| `lib/pdf/chunk.ts` | Pure page-aware chunking with overlap | nothing |
-| `lib/documents/repository.ts` | Every DB read and write for the two new tables | drizzle |
-| `lib/documents/ingest.ts` | The state machine — phase 1 and `ensureIndexed()` | all of the above |
-| `lib/documents/retrieve.ts` | `retrieveChunks(documentId, query, topK)` | ingest, embeddings |
-| `lib/documents/session.ts` | Signed anonymous session cookie | `node:crypto` |
+| Module                        | Purpose                                                                    | Depends on         |
+| ----------------------------- | -------------------------------------------------------------------------- | ------------------ |
+| `lib/storage/blobStore.ts`    | The `BlobStore` interface — `put` / `get` / `delete` over opaque keys      | nothing            |
+| `lib/storage/localDisk.ts`    | Filesystem implementation rooted at `UPLOAD_DIR`                           | `node:fs`          |
+| `lib/storage/index.ts`        | `getBlobStore()`, env-selected — same shape as `lib/providers/registry.ts` | the two above      |
+| `lib/pdf/extract.ts`          | `unpdf` wrapper returning `{ pageCount, pages: string[], title? }`         | `unpdf`            |
+| `lib/pdf/chunk.ts`            | Pure page-aware chunking with overlap                                      | nothing            |
+| `lib/documents/repository.ts` | Every DB read and write for the two new tables                             | drizzle            |
+| `lib/documents/ingest.ts`     | The state machine — phase 1 and `ensureIndexed()`                          | all of the above   |
+| `lib/documents/retrieve.ts`   | `retrieveChunks(documentId, query, topK)`                                  | ingest, embeddings |
+| `lib/documents/session.ts`    | Signed anonymous session cookie                                            | `node:crypto`      |
 
 `retrieveChunks` is deliberately **not** an HTTP endpoint. Nothing on the
 client needs raw chunks; #3 calls it server-side to build a prompt context,
@@ -237,13 +237,13 @@ contract applied everywhere else in the app.
 
 ## API surface
 
-| Route | Behavior |
-| --- | --- |
-| `POST /api/documents` | multipart/form-data, field `file` → 201 `{ documentId, pageCount, chunkCount, truncated, status }` |
-| `GET /api/documents` | the current session's documents, newest first |
-| `GET /api/documents/[documentId]` | metadata plus `status` — how a client watches `parsed → indexed` |
-| `GET /api/documents/[documentId]/file` | streams the original bytes; #3's reader pane needs this |
-| `DELETE /api/documents/[documentId]` | deletes chunk rows, the document row, and the blob |
+| Route                                  | Behavior                                                                                           |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `POST /api/documents`                  | multipart/form-data, field `file` → 201 `{ documentId, pageCount, chunkCount, truncated, status }` |
+| `GET /api/documents`                   | the current session's documents, newest first                                                      |
+| `GET /api/documents/[documentId]`      | metadata plus `status` — how a client watches `parsed → indexed`                                   |
+| `GET /api/documents/[documentId]/file` | streams the original bytes; #3's reader pane needs this                                            |
+| `DELETE /api/documents/[documentId]`   | deletes chunk rows, the document row, and the blob                                                 |
 
 Status codes: **400** not a PDF or no file, **413** over 30 MB, **422**
 encrypted or no extractable text, **503** storage unwritable or database
@@ -301,15 +301,15 @@ vitest in the node environment only. This repo has no jsdom and no
 `@testing-library/react`, and this sub-project ships no components, so
 nothing about that changes.
 
-| Test | Covers |
-| --- | --- |
-| `chunk.test.ts` | Page boundaries, overlap, one giant page, an empty page, a page shorter than the overlap |
-| `session.test.ts` | Signature round-trip; a tampered cookie is rejected |
-| `localDisk.test.ts` | put/get/delete round-trip in a tmpdir; a key escaping the root is rejected |
-| `extract.test.ts` | Three committed fixtures under `src/test/fixtures/pdf/` — normal, encrypted, image-only — pinning both the extracted text and the 422 classifications |
-| `ingest.test.ts` | Blob store and embeddings mocked: `parsed → indexed`; an extraction failure persists no row and deletes the blob; a phase-2 failure leaves `status: 'parsed'` so the next call resumes; re-upload of an identical file is idempotent |
-| `retrieve.test.ts` | Ranking with stub embeddings; the lexical fallback when `embedQuery` throws |
-| Route tests | Each endpoint's status codes, following `src/app/api/search/route.test.ts`'s existing shape |
+| Test                | Covers                                                                                                                                                                                                                               |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `chunk.test.ts`     | Page boundaries, overlap, one giant page, an empty page, a page shorter than the overlap                                                                                                                                             |
+| `session.test.ts`   | Signature round-trip; a tampered cookie is rejected                                                                                                                                                                                  |
+| `localDisk.test.ts` | put/get/delete round-trip in a tmpdir; a key escaping the root is rejected                                                                                                                                                           |
+| `extract.test.ts`   | Three committed fixtures under `src/test/fixtures/pdf/` — normal, encrypted, image-only — pinning both the extracted text and the 422 classifications                                                                                |
+| `ingest.test.ts`    | Blob store and embeddings mocked: `parsed → indexed`; an extraction failure persists no row and deletes the blob; a phase-2 failure leaves `status: 'parsed'` so the next call resumes; re-upload of an identical file is idempotent |
+| `retrieve.test.ts`  | Ranking with stub embeddings; the lexical fallback when `embedQuery` throws                                                                                                                                                          |
+| Route tests         | Each endpoint's status codes, following `src/app/api/search/route.test.ts`'s existing shape                                                                                                                                          |
 
 The three PDF fixtures are generated once and committed, small enough to read
 in a diff. They are the only new binary assets.

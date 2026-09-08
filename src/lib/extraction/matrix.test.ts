@@ -3,7 +3,12 @@ import { describe, it, expect, vi } from "vitest";
 vi.mock("@/lib/documents/retrieve", () => ({ retrieveChunks: vi.fn() }));
 vi.mock("@/lib/credits/metered", () => ({ meteredLlm: vi.fn() }));
 
-import { CELL_CONCURRENCY, fillCells, type CellJob, type CellResult } from "@/lib/extraction/matrix";
+import {
+  CELL_CONCURRENCY,
+  fillCells,
+  type CellJob,
+  type CellResult,
+} from "@/lib/extraction/matrix";
 
 const column = { id: 1, label: "sample size", hint: null, valueType: "number" };
 

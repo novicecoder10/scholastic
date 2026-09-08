@@ -57,7 +57,10 @@ export async function fetchPublications(orcid: string): Promise<Contribution[]> 
         year: w.publication_year ?? null,
       }));
   } catch (err) {
-    logger.warn({ event: "orcid_publications_error", err: String(err) }, "publication fetch failed");
+    logger.warn(
+      { event: "orcid_publications_error", err: String(err) },
+      "publication fetch failed",
+    );
     return [];
   }
 }

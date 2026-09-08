@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { parseDraft, sentenceSegments, splitSentences, validateDraft } from "@/lib/manuscript/draftGuard";
+import {
+  parseDraft,
+  sentenceSegments,
+  splitSentences,
+  validateDraft,
+} from "@/lib/manuscript/draftGuard";
 
 const ALLOWED = ["k1", "k2"];
 
@@ -27,7 +32,10 @@ describe("parseDraft", () => {
 
 describe("validateDraft", () => {
   it("keeps a properly cited draft intact", () => {
-    const result = validateDraft("Sleep consolidates memory [[k1]]. Naps help too [[k2]].", ALLOWED);
+    const result = validateDraft(
+      "Sleep consolidates memory [[k1]]. Naps help too [[k2]].",
+      ALLOWED,
+    );
     expect(result.sentences).toHaveLength(2);
     expect(result.droppedUncited).toBe(0);
     expect(result.droppedForeign).toBe(0);

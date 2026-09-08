@@ -54,14 +54,11 @@ export interface PositionedItem {
 export interface ExtractedTable {
   pageNumber: number;
   caption: string | null;
-  grid: string[][];        // row-major; empty cells are ""
-  confidence: number;      // 0..1, computed
+  grid: string[][]; // row-major; empty cells are ""
+  confidence: number; // 0..1, computed
 }
 
-export function detectTables(
-  pageNumber: number,
-  items: PositionedItem[],
-): ExtractedTable[];
+export function detectTables(pageNumber: number, items: PositionedItem[]): ExtractedTable[];
 ```
 
 Algorithm:
@@ -94,10 +91,10 @@ sought.
 ```ts
 export interface ExtractedFinding {
   pageNumber: number;
-  field: string;       // sample_size | design | p_value | effect_size | ci | ...
+  field: string; // sample_size | design | p_value | effect_size | ci | ...
   value: string;
   unit: string | null;
-  quote: string;       // verbatim from the source chunk
+  quote: string; // verbatim from the source chunk
 }
 ```
 
@@ -165,14 +162,14 @@ The consequences are the reason for the choice:
 ### `not_reported` is a first-class status
 
 The single most important correctness property of an evidence matrix is that a
-blank cell means *this paper does not report that*, and not *the extractor gave
-up*. Three statuses, rendered distinctly:
+blank cell means _this paper does not report that_, and not _the extractor gave
+up_. Three statuses, rendered distinctly:
 
-| Status | Meaning | UI |
-| --- | --- | --- |
-| `found` | A value with a page and a quote | The value, hoverable |
+| Status         | Meaning                                    | UI                    |
+| -------------- | ------------------------------------------ | --------------------- |
+| `found`        | A value with a page and a quote            | The value, hoverable  |
 | `not_reported` | Excerpts retrieved, field genuinely absent | "not reported", muted |
-| `error` | Retrieval or the call failed | Retry affordance |
+| `error`        | Retrieval or the call failed               | Retry affordance      |
 
 The prompt states explicitly that "not reported" is the correct answer when the
 retrieved excerpts do not contain the field, and that guessing from context is
@@ -212,11 +209,11 @@ Under #6:
 
 ## Degradation
 
-| Condition | Behavior |
-| --- | --- |
-| No LLM configured | Geometric tables still extract, as raw unlabelled grids. No headers, no units, no findings, no matrix. |
-| Retrieval unavailable | Findings and cells report `error`, tables unaffected |
-| Zero credits (#6) | Geometry free and available; metered surfaces show cost and replenishment |
+| Condition             | Behavior                                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------------------------ |
+| No LLM configured     | Geometric tables still extract, as raw unlabelled grids. No headers, no units, no findings, no matrix. |
+| Retrieval unavailable | Findings and cells report `error`, tables unaffected                                                   |
+| Zero credits (#6)     | Geometry free and available; metered surfaces show cost and replenishment                              |
 
 ## Testing
 

@@ -16,7 +16,9 @@ describe("resolveRef", () => {
     expect(resolveRef({ doi: "https://doi.org/10.1/ABC", title: null, year: null }).workKey).toBe(
       "doi:10.1/abc",
     );
-    expect(resolveRef({ doi: "doi:10.1/abc", title: null, year: null }).workKey).toBe("doi:10.1/abc");
+    expect(resolveRef({ doi: "doi:10.1/abc", title: null, year: null }).workKey).toBe(
+      "doi:10.1/abc",
+    );
   });
 
   it("marks a DOI-less ref unresolved", () => {
