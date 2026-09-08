@@ -6,8 +6,8 @@ Sub-project **5 of 9** (see `ROADMAP.md`). The largest so far, and the first
 where a mistake is a security bug rather than a quality problem.
 
 Scholastic has no identity layer. `ROADMAP.md` lists "accounts, saved searches,
-search history, and persistent research memory" under *Mid-term — needs its own
-foundation-design pass first*, and every feature built so far has been designed
+search history, and persistent research memory" under _Mid-term — needs its own
+foundation-design pass first_, and every feature built so far has been designed
 around its absence: chat has no persistence, synthesis state is
 client-round-tripped, and #2 invented an anonymous signed-cookie session
 specifically so uploads could work before accounts existed.
@@ -29,7 +29,7 @@ Two later sub-projects are blocked on this one:
 
 ### Framework notes
 
-Read before designing, per `AGENTS.md`:
+Framework documentation read before designing:
 `node_modules/next/dist/docs/01-app/02-guides/authentication.md` and
 `.../04-functions/unauthorized.md`.
 
@@ -73,10 +73,10 @@ Read before designing, per `AGENTS.md`:
 #2 built `scholastic_sid`, a signed anonymous cookie. better-auth brings its
 own session cookie. These are **not duplicates and must not be merged.**
 
-| Cookie | Identifies | Lifetime |
-| --- | --- | --- |
+| Cookie                | Identifies       | Lifetime                                  |
+| --------------------- | ---------------- | ----------------------------------------- |
 | `scholastic_sid` (#2) | This **browser** | Exists whether or not anyone is signed in |
-| better-auth session | This **user** | Exists only while signed in |
+| better-auth session   | This **user**    | Exists only while signed in               |
 
 Collapsing them produces one of two bugs, both bad: uploads vanish on sign-out,
 or the next person to use the browser inherits the previous user's library.
@@ -85,9 +85,7 @@ So the most important interface in this sub-project is a single resolver:
 
 ```ts
 // lib/auth/owner.ts
-export type Owner =
-  | { kind: "user"; userId: string }
-  | { kind: "anonymous"; sessionId: string };
+export type Owner = { kind: "user"; userId: string } | { kind: "anonymous"; sessionId: string };
 
 export function resolveOwner(): Promise<Owner>;
 ```
@@ -118,12 +116,12 @@ clean rather than resuming the departing user's device identity.
 
 The four cases this must handle, each of which gets a test:
 
-| Case | Expected |
-| --- | --- |
-| Anonymous with uploads signs up | Documents move to the new user |
-| Existing user signs in on a fresh device | Nothing to claim; no error |
-| A second user signs in on a browser that already used another account | Claims nothing — those rows have a `userId` |
-| User signs out | Documents stay with the user; cookie rotates; the device sees an empty anonymous library |
+| Case                                                                  | Expected                                                                                 |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Anonymous with uploads signs up                                       | Documents move to the new user                                                           |
+| Existing user signs in on a fresh device                              | Nothing to claim; no error                                                               |
+| A second user signs in on a browser that already used another account | Claims nothing — those rows have a `userId`                                              |
+| User signs out                                                        | Documents stay with the user; cookie rotates; the device sees an empty anonymous library |
 
 ---
 
@@ -163,10 +161,10 @@ door.
 
 Three surfaces, three deliberately different answers:
 
-| Surface | Unauthenticated / unauthorized |
-| --- | --- |
-| Library pages (`/library`, `/collections/*`) | Redirect to `/login?next=…` |
-| API routes (`/api/library/*`) | 401 JSON |
+| Surface                                           | Unauthenticated / unauthorized                    |
+| ------------------------------------------------- | ------------------------------------------------- |
+| Library pages (`/library`, `/collections/*`)      | Redirect to `/login?next=…`                       |
+| API routes (`/api/library/*`)                     | 401 JSON                                          |
 | #2's capability resources (`/api/documents/[id]`) | **404**, unchanged — a 403 confirms the id exists |
 
 `unauthorized()` is not used. It is experimental, it requires a config flag,
@@ -237,11 +235,11 @@ sharing, if it is ever built, is a feature rather than a migration.
 
 ## UI
 
-| Route | Contents |
-| --- | --- |
-| `/login`, `/signup` | Minimal forms on #1's tokens. OAuth buttons appear only for configured providers |
-| `/library` | Tabs: Papers · Documents · Collections |
-| `/library/collections/[publicId]` | One collection, reorderable, with export |
+| Route                             | Contents                                                                         |
+| --------------------------------- | -------------------------------------------------------------------------------- |
+| `/login`, `/signup`               | Minimal forms on #1's tokens. OAuth buttons appear only for configured providers |
+| `/library`                        | Tabs: Papers · Documents · Collections                                           |
+| `/library/collections/[publicId]` | One collection, reorderable, with export                                         |
 
 `Library` graduates from `TopNav`'s `SoonLink` to a real `NavLink`, and the
 placeholder `—` avatar circle becomes a real account menu.
@@ -262,14 +260,14 @@ rather than a list.
 
 ## Testing
 
-| Test | Covers |
-| --- | --- |
-| `owner.test.ts` | `resolveOwner` for both kinds; precedence of user over session |
-| `adoption.test.ts` | All four adoption cases in the table above, including that a second user claims nothing |
-| `savedItems.test.ts` | The CHECK constraint rejecting a malformed row; idempotent save; unsave; snapshot preserved when the live `work` row changes |
-| `collections.test.ts` | Name uniqueness per user; reordering; cross-user access returns nothing rather than erroring |
-| Route tests | 401 shape on `/api/library/*`; redirect on library pages; #2's document routes still 404 for a non-owner |
-| Migration test | #2 documents carrying only `ownerSessionId` still resolve after the `userId` column is added |
+| Test                  | Covers                                                                                                                       |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `owner.test.ts`       | `resolveOwner` for both kinds; precedence of user over session                                                               |
+| `adoption.test.ts`    | All four adoption cases in the table above, including that a second user claims nothing                                      |
+| `savedItems.test.ts`  | The CHECK constraint rejecting a malformed row; idempotent save; unsave; snapshot preserved when the live `work` row changes |
+| `collections.test.ts` | Name uniqueness per user; reordering; cross-user access returns nothing rather than erroring                                 |
+| Route tests           | 401 shape on `/api/library/*`; redirect on library pages; #2's document routes still 404 for a non-owner                     |
+| Migration test        | #2 documents carrying only `ownerSessionId` still resolve after the `userId` column is added                                 |
 
 ### Escalation on end-to-end coverage
 
@@ -298,13 +296,13 @@ not by omission.
 New environment variables, all optional in the sense that their absence
 disables a feature cleanly rather than breaking the app:
 
-| Variable | Effect when unset |
-| --- | --- |
-| `BETTER_AUTH_SECRET` | Accounts disabled entirely; app runs anonymous-only |
-| `BETTER_AUTH_URL` | Defaults to the request origin |
-| `GITHUB_CLIENT_ID` / `_SECRET` | GitHub sign-in not offered |
-| `GOOGLE_CLIENT_ID` / `_SECRET` | Google sign-in not offered |
-| `SMTP_URL` | Email verification off; password reset unavailable with a clear message |
+| Variable                       | Effect when unset                                                       |
+| ------------------------------ | ----------------------------------------------------------------------- |
+| `BETTER_AUTH_SECRET`           | Accounts disabled entirely; app runs anonymous-only                     |
+| `BETTER_AUTH_URL`              | Defaults to the request origin                                          |
+| `GITHUB_CLIENT_ID` / `_SECRET` | GitHub sign-in not offered                                              |
+| `GOOGLE_CLIENT_ID` / `_SECRET` | Google sign-in not offered                                              |
+| `SMTP_URL`                     | Email verification off; password reset unavailable with a clear message |
 
 All documented in `.env.example` and `SETUP.md`, following the existing
 "required to enable" convention.

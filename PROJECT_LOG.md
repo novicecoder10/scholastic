@@ -467,7 +467,7 @@ in 0.06s. Streaming/incremental results is already on the roadmap and is the rea
   is committed — `HEAD` is still the scaffold plus specs, and all of Milestones 1–3 (~5,700
   changed lines, plus every file under `src/lib`, `src/components`, `src/app/api`) lives in the
   working tree. (b) The approved spec
-  `docs/superpowers/specs/2026-08-23-scispace-visual-redesign-design.md` (sub-project #1 of the
+  `docs/specs/2026-08-23-scispace-visual-redesign-design.md` (sub-project #1 of the
   nine-part product sequence) had not been started at all. User asked for everything, with the
   commit left to them.
 - Implemented sub-project #1 in full, presentation-layer only:

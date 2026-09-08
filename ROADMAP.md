@@ -67,7 +67,7 @@ app has never done — only abstracts from provider APIs) rather than being a qu
 ## Product sequence — toward a SciSpace-class surface (9 sub-projects)
 
 After Milestone 3, the work was re-planned as a dependency-ordered sequence of nine
-sub-projects (see `docs/superpowers/specs/2026-08-23-scispace-visual-redesign-design.md` for
+sub-projects (see `docs/specs/2026-08-23-scispace-visual-redesign-design.md` for
 the full framing), gamified around a non-monetary credits system — no paid tiers. Three items
 from the reference feature set (Agent Gallery's 2,602 agents, a 5,405-item template library,
 and an AI-detector claiming benchmarked accuracy over GPTZero/Grammarly) are platform-scale or
@@ -97,11 +97,11 @@ not honestly buildable, and are deferred indefinitely by explicit decision.
    structural analysis, and an accessible DOM fallback.
 
 All nine are shipped. Each got its own brainstorming round and spec; they live in
-`docs/superpowers/specs/`.
+`docs/specs/`.
 
 ### After the nine: the homepage's unbuilt promises
 
-The task-first homepage shipped in #1 with five quick actions, three of them labelled *Soon*.
+The task-first homepage shipped in #1 with five quick actions, three of them labelled _Soon_.
 They are now built, and two were renamed on the way because the honest version is narrower
 than the label:
 

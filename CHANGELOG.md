@@ -79,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Design specs for sub-projects #2–#9** in `docs/superpowers/specs/`: document ingestion,
+- **Design specs for sub-projects #2–#9** in `docs/specs/`: document ingestion,
   chat with PDF, quick-win tools, accounts and library, credits and sponsorship, extract
   data, the AI writer, and the citation-graph explorer.
 - **Sub-project #2 — document ingestion.** Upload a PDF, store it, extract its text, chunk it

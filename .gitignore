@@ -40,8 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Visual brainstorming companion mockups
-.superpowers/
 
 # Uploaded PDFs (local blob store default; override with UPLOAD_DIR)
 /.uploads/
