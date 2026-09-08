@@ -39,13 +39,13 @@ jobs:
       BETTER_AUTH_SECRET: ci-auth-secret-not-a-real-one
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      # No `version:` here on purpose — the action reads package.json's
+      # `packageManager` field, and specifying both is a hard error.
+      - uses: pnpm/action-setup@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: pnpm
