@@ -488,3 +488,17 @@ rather than surprises. Updated as the implementation progresses.
   a single 70B model, so a bulk job (summaries, topic labels) routed there costs the sponsor the
   same as a synthesis. Ranking endpoints below the named providers limits the exposure but does
   not remove it.
+
+## Test suite
+
+- **A large part of the suite asserts "no database configured" behaviour, and stops asserting it
+  when a database exists.** The db client is memoized at import, so a test cannot take the
+  database away from itself — `delete process.env.DATABASE_URL` inside a test has no effect once
+  anything has resolved a client. Five tests (four in `api/search/route.test.ts`, one in
+  `ai/citations/reasoning.test.ts`) pass for the wrong reason when `DATABASE_URL` is set, which
+  is why CI runs the main suite without one and gives a database only to the `*.integration.test.ts`
+  files. Making them database-agnostic means mocking `lib/db/client` per file; worth doing, not
+  yet done.
+- **Recorded provider fixtures are all well-formed.** They test each parser but never its
+  assumptions — a real arXiv record with a repeated `<arxiv:doi>` element once took down an
+  entire search, and no fixture would have caught it.

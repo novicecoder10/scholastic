@@ -32,8 +32,13 @@ jobs:
           --health-retries 10
 
     env:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/scholastic
-      # Deliberately no provider keys: every AI feature must degrade to a clear
+      # DATABASE_URL is deliberately NOT set job-wide. Much of the suite asserts
+      # the "no database configured" path, and those tests stop asserting
+      # anything the moment a database exists — the DB client is memoized at
+      # import, so a test cannot take the database away from itself. Steps that
+      # need one declare it individually.
+      #
+      # No provider keys anywhere: every AI feature must degrade to a clear
       # "not configured" response, and CI is where that stays true.
       SESSION_SECRET: ci-session-secret-not-a-real-one
       BETTER_AUTH_SECRET: ci-auth-secret-not-a-real-one
@@ -54,6 +59,8 @@ jobs:
 
       - name: Migrate
         run: pnpm db:migrate
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/scholastic
 
       - name: Lint
         run: pnpm lint
@@ -64,8 +71,19 @@ jobs:
       - name: Format check
         run: pnpm exec prettier --check "src/**/*.{ts,tsx}" "*.md"
 
-      - name: Unit and integration tests
+      # No database: the contract the bulk of the suite is written against.
+      - name: Unit tests
         run: pnpm test
+
+      # The suites that exist to exercise real SQL, against the real thing.
+      # They skip themselves when DATABASE_URL is absent, which is exactly why
+      # they need their own step rather than riding along above.
+      - name: Integration tests
+        run: pnpm vitest run integration.test
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/scholastic
 
       - name: Build
         run: pnpm build
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/scholastic
