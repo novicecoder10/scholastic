@@ -842,8 +842,8 @@ in 0.06s. Streaming/incremental results is already on the roadmap and is the rea
   for this query" with "all sources are down" or "your filters excluded everything").
   `app/loading.tsx` for the SSR navigation loading state, respecting `prefers-reduced-motion`.
   `generateMetadata` sets a dynamic title/description/canonical URL per query.
-- **Testing disclosure:** no browser-automation tool is available in this environment (no
-  claude-in-chrome MCP registered), so interactivity (client-side filtering, search
+- **Testing disclosure:** no browser-automation tool was available in this environment, so
+  interactivity (client-side filtering, search
   navigation) was not verified in an actual browser — only the logic itself, which is
   covered by existing unit tests where it lives outside components. What _was_ verified:
   fetched the real SSR HTML output via `curl` against the dev server for both the empty
