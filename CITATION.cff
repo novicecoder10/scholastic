@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "Scholastic: an open research workspace with enforced attribution"
+message: "If you use this software in your research, please cite it."
+type: software
+authors:
+  - family-names: Karat
+    given-names: Gautam
+repository-code: "https://github.com/novicecoder10/scholastic"
+abstract: >-
+  A self-hostable scholarly research workspace: federated search across nine
+  open sources with deduplication and ranking, a PDF reader whose assistant
+  answers with page-level citations, an evidence matrix in which every filled
+  cell retains the page and sentence it was extracted from, and manuscript and
+  slide-deck writers that delete any generated claim they cannot attribute to a
+  supplied source. AI capacity is allocated through a credit commons whose
+  credits are never purchasable and never transferable.
+keywords:
+  - literature search
+  - open science
+  - scholarly communication
+  - systematic review
+  - retrieval-augmented generation
+  - research software
+license: MIT
+version: 0.5.0
+date-released: "2026-09-08"

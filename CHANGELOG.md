@@ -5,7 +5,14 @@ All notable changes to Scholastic are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.5.0] — 2026-09-08
+
+The nine-part product sequence, complete: PDF ingestion, chat with a PDF, deterministic
+citations and topic discovery, accounts and a library, the credit commons, extraction and the
+evidence matrix, the manuscript editor, and the citation-graph explorer — plus the presentation
+builder and the sponsored-endpoint capacity dispatcher added on top of them.
+
+764 unit and integration tests across 96 files, 29 end-to-end tests, lint and typecheck clean.
 
 ### Added
 

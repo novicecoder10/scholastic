@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    services:
+      # pgvector rather than plain postgres: the schema declares vector columns,
+      # so migrations fail outright without the extension. Running the real thing
+      # also means the integration suites execute here instead of skipping
+      # themselves the way they do on a bare checkout.
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: scholastic
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/scholastic
+      # Deliberately no provider keys: every AI feature must degrade to a clear
+      # "not configured" response, and CI is where that stays true.
+      SESSION_SECRET: ci-session-secret-not-a-real-one
+      BETTER_AUTH_SECRET: ci-auth-secret-not-a-real-one
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Migrate
+        run: pnpm db:migrate
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit
+
+      - name: Format check
+        run: pnpm exec prettier --check "src/**/*.{ts,tsx}" "*.md"
+
+      - name: Unit and integration tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build

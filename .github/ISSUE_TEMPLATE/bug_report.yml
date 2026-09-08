@@ -1,0 +1,49 @@
+name: Bug report
+description: Something behaves differently from what the documentation says
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please check [`KNOWN_LIMITATIONS.md`](../blob/master/KNOWN_LIMITATIONS.md) first —
+        several surprising behaviours are deliberate and explained there.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what happened, and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: "v0.5.0, or the commit SHA"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Search and merge
+        - PDF reader and extraction
+        - Evidence matrix
+        - Manuscript or deck writer
+        - Citation graph
+        - Accounts and library
+        - Credits, capacity or sponsorship
+        - Setup and deployment
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Node version, PostgreSQL version, and which LLM provider is configured (never paste a key).
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      render: shell

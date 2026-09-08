@@ -1,0 +1,30 @@
+name: Feature request
+description: Suggest something the project should do
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        [`ROADMAP.md`](../blob/master/ROADMAP.md) lists what is planned and what is
+        deliberately out of scope, including a few ideas that were declined on purpose.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do that is hard or impossible today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you have in mind
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Project constraints
+      description: These are non-negotiable in this codebase; please confirm the idea fits.
+      options:
+        - label: It does not display generated claims that cannot be attributed to a source.
+          required: true
+        - label: It does not store an API key anywhere other than the environment.
+          required: true

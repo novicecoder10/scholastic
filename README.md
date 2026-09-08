@@ -1,5 +1,9 @@
 # Scholastic
 
+[![CI](https://github.com/novicecoder10/scholastic/actions/workflows/ci.yml/badge.svg)](https://github.com/novicecoder10/scholastic/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Node](https://img.shields.io/badge/node-20%2B-brightgreen.svg)](https://nodejs.org)
+
 **A research workspace that refuses to make things up.**
 
 Search nine open scholarly sources at once, read papers with a copilot that cites the page it
