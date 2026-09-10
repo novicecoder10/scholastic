@@ -10,13 +10,19 @@ updates:
       # partial bump of a framework is more likely to break than either version.
       next:
         patterns: ["next", "react", "react-dom", "@types/react", "@types/react-dom"]
+      # The linter stack moves on its own schedule: an ESLint major routinely
+      # lands before the plugins that have to load into it, and while it sits
+      # there waiting it should not hold up the test and formatter bumps it
+      # has nothing to do with.
+      eslint:
+        patterns: ["eslint*", "@typescript-eslint/*", "typescript-eslint"]
       tooling:
-        patterns: ["eslint*", "prettier*", "typescript", "vitest", "@vitest/*", "@playwright/*"]
+        patterns: ["prettier*", "typescript", "vitest", "@vitest/*", "@playwright/*"]
     ignore:
       # typescript-eslint refuses to load against TS >= 7.0, so a TypeScript 7
-      # bump fails `pnpm lint` outright — and because TypeScript shares the
-      # `tooling` group, it takes the other four bumps down with it. Pinning it
-      # below 7 lets the rest of the group land on its own schedule.
+      # bump fails `pnpm lint` outright and takes the rest of its PR down with
+      # it — the linter runs over the whole repo regardless of which group the
+      # compiler happens to travel in.
       # Drop this once typescript-eslint supports TS >= 7.1:
       # https://github.com/typescript-eslint/typescript-eslint/issues/10940
       - dependency-name: typescript
